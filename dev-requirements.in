@@ -1,4 +1,8 @@
 -r requirements.txt
 
+flake8
 pre-commit
+pycodestyle
+pylint
+mypy
 neovim

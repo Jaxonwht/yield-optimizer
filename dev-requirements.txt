@@ -4,6 +4,8 @@
 #
 #    pip-compile dev-requirements.in
 #
+astroid==2.9.3
+    # via pylint
 cfgv==3.3.1
     # via pre-commit
 click==8.0.4
@@ -20,12 +22,16 @@ ecos==2.0.10
     #   cvxpy
 filelock==3.6.0
     # via virtualenv
+flake8==4.0.1
+    # via -r dev-requirements.in
 flask==2.0.3
     # via -r requirements.txt
 greenlet==1.1.2
     # via pynvim
 identify==2.4.11
     # via pre-commit
+isort==5.10.1
+    # via pylint
 itsdangerous==2.1.0
     # via
     #   -r requirements.txt
@@ -34,12 +40,22 @@ jinja2==3.0.3
     # via
     #   -r requirements.txt
     #   flask
+lazy-object-proxy==1.7.1
+    # via astroid
 markupsafe==2.1.0
     # via
     #   -r requirements.txt
     #   jinja2
+mccabe==0.6.1
+    # via
+    #   flake8
+    #   pylint
 msgpack==1.0.3
     # via pynvim
+mypy==0.931
+    # via -r dev-requirements.in
+mypy-extensions==0.4.3
+    # via mypy
 neovim==0.3.1
     # via -r dev-requirements.in
 nodeenv==1.6.0
@@ -58,8 +74,18 @@ osqp==0.6.2.post5
     #   -r requirements.txt
     #   cvxpy
 platformdirs==2.5.1
-    # via virtualenv
+    # via
+    #   pylint
+    #   virtualenv
 pre-commit==2.17.0
+    # via -r dev-requirements.in
+pycodestyle==2.8.0
+    # via
+    #   -r dev-requirements.in
+    #   flake8
+pyflakes==2.4.0
+    # via flake8
+pylint==2.12.2
     # via -r dev-requirements.in
 pynvim==0.4.3
     # via neovim
@@ -84,10 +110,24 @@ scs==3.2.0
 six==1.16.0
     # via virtualenv
 toml==0.10.2
-    # via pre-commit
+    # via
+    #   pre-commit
+    #   pylint
+tomli==2.0.1
+    # via mypy
+typing-extensions==4.1.1
+    # via
+    #   astroid
+    #   mypy
+    #   pylint
 virtualenv==20.13.2
     # via pre-commit
 werkzeug==2.0.3
     # via
     #   -r requirements.txt
     #   flask
+wrapt==1.13.3
+    # via astroid
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
