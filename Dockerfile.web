@@ -5,9 +5,8 @@ COPY requirements.txt .
 RUN pip install -U pip wheel \
   && pip install -r requirements.txt
 
-
 WORKDIR /code
-COPY web_backend.py .
+COPY web .
 
-ENV FLASK_APP web_backend
+ENV FLASK_APP web
 CMD ["flask", "run", "--host=0.0.0.0"]
