@@ -6,6 +6,10 @@
 #
 cfgv==3.3.1
     # via pre-commit
+click==8.0.4
+    # via
+    #   -r requirements.txt
+    #   flask
 cvxpy==1.1.18
     # via -r requirements.txt
 distlib==0.3.4
@@ -16,10 +20,24 @@ ecos==2.0.10
     #   cvxpy
 filelock==3.6.0
     # via virtualenv
+flask==2.0.3
+    # via -r requirements.txt
 greenlet==1.1.2
     # via pynvim
 identify==2.4.11
     # via pre-commit
+itsdangerous==2.1.0
+    # via
+    #   -r requirements.txt
+    #   flask
+jinja2==3.0.3
+    # via
+    #   -r requirements.txt
+    #   flask
+markupsafe==2.1.0
+    # via
+    #   -r requirements.txt
+    #   jinja2
 msgpack==1.0.3
     # via pynvim
 neovim==0.3.1
@@ -69,3 +87,7 @@ toml==0.10.2
     # via pre-commit
 virtualenv==20.13.2
     # via pre-commit
+werkzeug==2.0.3
+    # via
+    #   -r requirements.txt
+    #   flask

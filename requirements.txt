@@ -4,10 +4,20 @@
 #
 #    pip-compile requirements.in
 #
+click==8.0.4
+    # via flask
 cvxpy==1.1.18
     # via -r requirements.in
 ecos==2.0.10
     # via cvxpy
+flask==2.0.3
+    # via -r requirements.in
+itsdangerous==2.1.0
+    # via flask
+jinja2==3.0.3
+    # via flask
+markupsafe==2.1.0
+    # via jinja2
 numpy==1.22.2
     # via
     #   -r requirements.in
@@ -28,3 +38,5 @@ scipy==1.8.0
     #   scs
 scs==3.2.0
     # via cvxpy
+werkzeug==2.0.3
+    # via flask
