@@ -4,3 +4,27 @@
 #
 #    pip-compile requirements.in
 #
+cvxpy==1.1.18
+    # via -r requirements.in
+ecos==2.0.10
+    # via cvxpy
+numpy==1.22.2
+    # via
+    #   -r requirements.in
+    #   cvxpy
+    #   ecos
+    #   osqp
+    #   scipy
+    #   scs
+osqp==0.6.2.post5
+    # via cvxpy
+qdldl==0.1.5.post0
+    # via osqp
+scipy==1.8.0
+    # via
+    #   cvxpy
+    #   ecos
+    #   osqp
+    #   scs
+scs==3.2.0
+    # via cvxpy

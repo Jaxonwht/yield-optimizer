@@ -6,8 +6,14 @@
 #
 cfgv==3.3.1
     # via pre-commit
+cvxpy==1.1.18
+    # via -r requirements.txt
 distlib==0.3.4
     # via virtualenv
+ecos==2.0.10
+    # via
+    #   -r requirements.txt
+    #   cvxpy
 filelock==3.6.0
     # via virtualenv
 greenlet==1.1.2
@@ -20,6 +26,19 @@ neovim==0.3.1
     # via -r dev-requirements.in
 nodeenv==1.6.0
     # via pre-commit
+numpy==1.22.2
+    # via
+    #   -r requirements.txt
+    #   cvxpy
+    #   ecos
+    #   osqp
+    #   qdldl
+    #   scipy
+    #   scs
+osqp==0.6.2.post5
+    # via
+    #   -r requirements.txt
+    #   cvxpy
 platformdirs==2.5.1
     # via virtualenv
 pre-commit==2.17.0
@@ -28,6 +47,22 @@ pynvim==0.4.3
     # via neovim
 pyyaml==6.0
     # via pre-commit
+qdldl==0.1.5.post0
+    # via
+    #   -r requirements.txt
+    #   osqp
+scipy==1.8.0
+    # via
+    #   -r requirements.txt
+    #   cvxpy
+    #   ecos
+    #   osqp
+    #   qdldl
+    #   scs
+scs==3.2.0
+    # via
+    #   -r requirements.txt
+    #   cvxpy
 six==1.16.0
     # via virtualenv
 toml==0.10.2
