@@ -3,9 +3,10 @@
 ## Development
 Some set up instructions for local development.
 
-### Python Setup
+### Python Setup (for web)
 This project uses Python 3.9. Please create a virtual environment and upgrade your pip.
 ```bash
+cd web
 python -m venv .venv
 source .venv/bin/activate
 pip install -U pip wheel pip-tools
