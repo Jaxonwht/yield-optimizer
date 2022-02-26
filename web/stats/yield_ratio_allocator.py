@@ -1,8 +1,9 @@
 """Compute the best allocation strategy."""
+from typing import Iterable, List, Tuple
+
 import cvxpy
 import numpy
 
-from typing import Iterable, List, Tuple
 from stats.quadratic_program import solve_quadratic_program
 from stats.result import OptimizerResult
 from stats.soc_program import solve_soc_problem
@@ -24,7 +25,7 @@ def optimize_ratios(stats: Iterable[Tuple[str, List[float]]], k: float, minimum_
         pool_names.append(pool_name)
         apys.append(apys_for_pool[:shortest_apy_length])
         if shortest_apy_length is None:
-            shortest_apy_length = apys_for_pool
+            shortest_apy_length = len(apys_for_pool)
         else:
             shortest_apy_length = min(shortest_apy_length, len(apys_for_pool))
 
@@ -37,8 +38,13 @@ def optimize_ratios(stats: Iterable[Tuple[str, List[float]]], k: float, minimum_
         return OptimizerResult(quadratic_problem_result.solver_status, 0.0, {})
 
     soc_problem_result = solve_soc_problem(apy_arr, covariance_matrix, quadratic_problem_result.minimum_value, k)
+
+    solution_allocation = soc_problem_result.solution
+    estimated_standard_deviation = numpy.sqrt(solution_allocation.T @ covariance_matrix @ solution_allocation)
+    covariance_matrix
     return OptimizerResult(
         soc_problem_result.solver_status,
         soc_problem_result.maximum_value,
-        allocation_ratios=tuple(zip(pool_names, soc_problem_result.solution)),
+        allocation_ratios=tuple(zip(pool_names, solution_allocation)),
+        estimated_standard_deviation=estimated_standard_deviation,
     )

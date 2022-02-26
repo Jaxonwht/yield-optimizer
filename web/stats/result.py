@@ -11,6 +11,7 @@ class OptimizerResult(NamedTuple):
     solver_status: str
     maximum_yield: float
     allocation_ratios: Iterable[Tuple[str, float]]
+    estimated_standard_deviation: float
 
 
 class QuadraticProgramResult(NamedTuple):

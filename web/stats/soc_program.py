@@ -28,9 +28,14 @@ def solve_soc_problem(
     length = len(series_data)
     points_per_variable = len(series_data[0])
     ratios = cvxpy.Variable(length)
-    lower_triangle = numpy.linalg.cholesky(covariance_matrix)
-    maximize_expression = cvxpy.sum(ratios.T @ series_data) / points_per_variable
-    soc_constraint = cvxpy.SOC(numpy.sqrt(k * minimum_constraint_value), lower_triangle.T @ ratios)
+
+    # Decomposition
+    eig_vectors, eig_values, _ = numpy.linalg.svd(covariance_matrix, hermitian=True)
+    sigma = numpy.diag(numpy.sqrt(eig_values))
+    decomposed = eig_vectors @ sigma
+
+    maximize_expression = cvxpy.Maximize(cvxpy.sum(ratios.T @ series_data) / points_per_variable)
+    soc_constraint = cvxpy.SOC(numpy.sqrt(k * minimum_constraint_value), decomposed.T @ ratios)
     prob = cvxpy.Problem(maximize_expression, [soc_constraint, cvxpy.sum(ratios) == 1, ratios >= 0])
     prob.solve()
     return SecondOrderConeProgramResult(
