@@ -11,7 +11,7 @@ def solve_soc_problem(
     """
     Solve the following problem.
 
-    Maximize sum(x^T series_data)
+    Maximize mean(x^T series_data)
     Subject to
         sum(x) = 1
         x >= 0
@@ -26,9 +26,10 @@ def solve_soc_problem(
     || L^T x||_2 <= sqrt(k * minimum_variance) is a second-order cone constraint.
     """
     length = len(series_data)
+    points_per_variable = len(series_data[0])
     ratios = cvxpy.Variable(length)
     lower_triangle = numpy.linalg.cholesky(covariance_matrix)
-    maximize_expression = cvxpy.sum(ratios.T @ series_data)
+    maximize_expression = cvxpy.sum(ratios.T @ series_data) / points_per_variable
     soc_constraint = cvxpy.SOC(numpy.sqrt(k * minimum_constraint_value), lower_triangle.T @ ratios)
     prob = cvxpy.Problem(maximize_expression, [soc_constraint, cvxpy.sum(ratios) == 1, ratios >= 0])
     prob.solve()
