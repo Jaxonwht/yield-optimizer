@@ -13,7 +13,7 @@ services:
       - backend
   client:
     build:
-      dockerfile: Dockerfile.client
+      dockerfile: Dockerfile.client_dev
     ports:
       - "3000:3000"
     networks:
