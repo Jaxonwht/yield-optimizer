@@ -9,7 +9,7 @@ from utils.constants import ENCODING
 try:
     from yaml import CLoader as Loader
 except ImportError:
-    from yaml import Loader
+    from yaml import Loader  # type: ignore
 
 
 class ConfigInitializeException(Exception):
