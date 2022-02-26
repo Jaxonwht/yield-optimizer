@@ -1,11 +1,8 @@
 FROM node:16.14-slim
 
-WORKDIR /code/client
+WORKDIR /client
 
 COPY client/package.json .
 RUN npm install
-
-COPY ./client .
-
 
 CMD ["npm", "run", "start"]

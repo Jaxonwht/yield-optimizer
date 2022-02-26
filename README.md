@@ -24,3 +24,8 @@ You can run `docker compose build && docker compose up` to spin up a development
 - The web backend server is accessible at `localhost:5000`.
 - The React web client will run at `localhost:3000`.
 - The postgres server will run at `localhost:5432`.
+
+During development, the code to run both React and Flask will be mounted into the docker container
+using volumes. This means changes in code are synced between the hosts and the dockers, while
+Docker images are kept at a reasonable size. However in deployment, separate Dockerfiles should be created
+that actually add the code into the images themselves via `COPY` or `ADD`.

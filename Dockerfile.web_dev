@@ -5,8 +5,7 @@ COPY web/requirements.txt .
 RUN pip install -U pip wheel \
   && pip install -r requirements.txt
 
-WORKDIR /code
-COPY web .
+WORKDIR /web
 
-ENV FLASK_APP web
+ENV FLASK_APP application
 CMD ["flask", "run", "--host=0.0.0.0"]

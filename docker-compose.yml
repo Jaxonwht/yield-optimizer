@@ -3,12 +3,14 @@ version: "3.9"
 services:
   web_backend:
     build:
-      dockerfile: Dockerfile.web
+      dockerfile: Dockerfile.web_dev
     ports:
       - "5000:5000"
     environment:
       FLASK_ENV: development
       CONFIG_ENV: dev-docker.yml
+    volumes:
+      - ./web:/web
     networks:
       - frontend
       - backend
@@ -19,6 +21,8 @@ services:
       - "3000:3000"
     networks:
       - frontend
+    volumes:
+      - ./client:/client
   db:
     image: postgres:14.2-alpine
     environment:
