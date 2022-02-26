@@ -8,3 +8,8 @@ services:
       - "5000:5000"
     environment:
       FLASK_ENV: development
+  client:
+    build:
+      dockerfile: Dockerfile.client
+    ports:
+      - "3000:3000"

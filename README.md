@@ -15,4 +15,4 @@ pre-commit install
 
 ### Docker Setup
 You can run `docker compose build && docker compose up` to spin up a development server.
-The web backend server is accessible at `localhost:5000`.
+The web backend server is accessible at `localhost:5000`. The React web client will run at `localhost:3000`.

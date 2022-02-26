@@ -1,0 +1,7 @@
+FROM node:14-slim
+
+COPY client client
+
+WORKDIR /client
+
+CMD ["npm", "run", "start"]
