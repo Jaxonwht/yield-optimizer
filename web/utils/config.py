@@ -5,6 +5,7 @@ from typing import Dict
 
 import yaml
 from utils.constants import ENCODING
+from utils.dict_merge import merge_dicts_recursively
 
 try:
     from yaml import CLoader as Loader
@@ -21,7 +22,7 @@ class Config(SimpleNamespace):  # pylint: disable=too-few-public-methods
 
     def __init__(self, data: Dict) -> None:
         for key, value in data.items():
-            if isinstance(value, (list, tuple, frozenset)):
+            if isinstance(value, (list, tuple)):
                 setattr(self, key, tuple(Config(value_entry) for value_entry in value))
             elif isinstance(value, dict):
                 setattr(self, key, Config(value))
@@ -35,9 +36,11 @@ def get_config() -> Config:
     if config_env is None:
         print("`CONFIG_ENV` is not defined, using `dev.yml` instead")
         config_env = "dev.yml"
-    yaml_data = None
+    with open("config/base.yml", "r", encoding=ENCODING) as base_config_file:
+        base_data = yaml.load(base_config_file, Loader=Loader)
     with open(f"config/{config_env}", "r", encoding=ENCODING) as config_file:
-        yaml_data = yaml.load(config_file, Loader=Loader)
+        extra_data = yaml.load(config_file, Loader=Loader)
+    yaml_data = merge_dicts_recursively(False, base_data, extra_data)
     if yaml_data is None:
         raise ConfigInitializeException(f"config/{config_env} does not contain valid data")
     return Config(yaml_data)

@@ -16,7 +16,8 @@ pre-commit install
 
 Note that the web backend uses the environment variable `CONFIG_ENV` to choose the config
 yaml file. The default is `dev.yml` if the environment variable is unspecified, and the web
-backend will use the [corresponding config file](config/dev.yml).
+backend will use the [corresponding config file](config/dev.yml). All the configs will be merged
+into [config/base.yml](config/base.yml) recursively to produce the final config.
 
 ### Docker Setup
 You can run `docker compose build && docker compose up` to spin up a development server.
