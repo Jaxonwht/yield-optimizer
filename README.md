@@ -1,10 +1,13 @@
 # Yield Optimizer for Beefy
 
 ## Development
+
 Some set up instructions for local development.
 
 ### Web Backend Setup
+
 This project uses Python 3.9. Please create a virtual environment and upgrade your pip.
+
 ```bash
 cd web
 python3 -m venv .venv
@@ -20,7 +23,9 @@ backend will use the [corresponding config file](config/dev.yml). All the config
 into [config/base.yml](config/base.yml) recursively to produce the final config.
 
 ### Docker Setup
+
 You can run `docker compose build && docker compose up` to spin up a development server.
+
 - The web backend server is accessible at `localhost:5000`.
 - The React web client will run at `localhost:3000`.
 - The postgres server will run at `localhost:5432`.
@@ -29,3 +34,25 @@ During development, the code to run both React and Flask will be mounted into th
 using volumes. This means changes in code are synced between the hosts and the dockers, while
 Docker images are kept at a reasonable size. However in deployment, separate Dockerfiles should be created
 that actually add the code into the images themselves via `COPY` or `ADD`.
+
+### Database Migration
+
+In development context, the Postgres server is running as a docker image. We use [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/)
+to do automatic database migrations through SQLAlchemy. Normally you do not have to carry out migration
+unless you define a new SQLAlchemy model or modify an existing one. You cannot run `flask db <command>` directly
+because the web backend runs in a Docker container. There are two ways to run those commands.
+
+```bash
+# You can ssh into the web_backend server and run commands from within.
+docker compose exec web_backend /bin/bash
+flask db init
+flask db migrate -m "Some migration"
+flask db upgrade
+
+# You can also run these commands from the host directly.
+docker compose run web_backend flask db init
+docker compose run web_backend flask db migrate -m "Some migration"
+docker compose run web_backend flask db upgrade
+```
+
+Always double-check the auto-generated migration file before commiting to the upgrade.

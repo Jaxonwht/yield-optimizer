@@ -1,2 +1,2 @@
 postgres:
-  uri: postgres://postgres:postgres@db:5432/web_dev
+  uri: postgresql://postgres:postgres@db:5432/web_dev

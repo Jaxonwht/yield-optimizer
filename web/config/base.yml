@@ -1,6 +1,3 @@
 sqlalchemy:
   # Recommended to switch off for performance gain
   track_modifications: False
-
-postgres:
-  api: prod
