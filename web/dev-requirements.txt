@@ -4,6 +4,10 @@
 #
 #    pip-compile dev-requirements.in
 #
+alembic==1.7.6
+    # via
+    #   -r requirements.txt
+    #   flask-migrate
 astroid==2.9.3
     # via pylint
 cfgv==3.3.1
@@ -25,9 +29,21 @@ filelock==3.6.0
 flake8==4.0.1
     # via -r dev-requirements.in
 flask==2.0.3
+    # via
+    #   -r requirements.txt
+    #   flask-migrate
+    #   flask-sqlalchemy
+flask-migrate==3.1.0
     # via -r requirements.txt
+flask-sqlalchemy==2.5.1
+    # via
+    #   -r requirements.txt
+    #   flask-migrate
 greenlet==1.1.2
-    # via pynvim
+    # via
+    #   -r requirements.txt
+    #   pynvim
+    #   sqlalchemy
 identify==2.4.11
     # via pre-commit
 isort==5.10.1
@@ -42,10 +58,15 @@ jinja2==3.0.3
     #   flask
 lazy-object-proxy==1.7.1
     # via astroid
+mako==1.1.6
+    # via
+    #   -r requirements.txt
+    #   alembic
 markupsafe==2.1.0
     # via
     #   -r requirements.txt
     #   jinja2
+    #   mako
 mccabe==0.6.1
     # via
     #   flake8
@@ -79,6 +100,8 @@ platformdirs==2.5.1
     #   virtualenv
 pre-commit==2.17.0
     # via -r dev-requirements.in
+psycopg2-binary==2.9.3
+    # via -r requirements.txt
 pycodestyle==2.8.0
     # via
     #   -r dev-requirements.in
@@ -90,7 +113,9 @@ pylint==2.12.2
 pynvim==0.4.3
     # via neovim
 pyyaml==6.0
-    # via pre-commit
+    # via
+    #   -r requirements.txt
+    #   pre-commit
 qdldl==0.1.5.post0
     # via
     #   -r requirements.txt
@@ -109,12 +134,19 @@ scs==3.2.0
     #   cvxpy
 six==1.16.0
     # via virtualenv
+sqlalchemy==1.4.31
+    # via
+    #   -r requirements.txt
+    #   alembic
+    #   flask-sqlalchemy
 toml==0.10.2
     # via
     #   pre-commit
     #   pylint
 tomli==2.0.1
     # via mypy
+types-pyyaml==6.0.4
+    # via -r dev-requirements.in
 typing-extensions==4.1.1
     # via
     #   astroid

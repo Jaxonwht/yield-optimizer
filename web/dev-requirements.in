@@ -4,5 +4,6 @@ flake8
 pre-commit
 pycodestyle
 pylint
+types-pyyaml
 mypy
 neovim
