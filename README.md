@@ -7,7 +7,7 @@ Some set up instructions for local development.
 This project uses Python 3.9. Please create a virtual environment and upgrade your pip.
 ```bash
 cd web
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -U pip wheel pip-tools
 pip install -r dev-requirements.txt
