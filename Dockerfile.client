@@ -1,7 +1,14 @@
 FROM node:14-slim
 
-COPY client client
+WORKDIR /code/client
 
-WORKDIR /client
+# Reason why we use npm ci
+# https://stackoverflow.com/questions/52499617/what-is-the-difference-between-npm-install-and-npm-ci
+COPY ./client/package.json .
+COPY ./client/package-lock.json .
+RUN npm ci
+
+COPY ./client .
+
 
 CMD ["npm", "run", "start"]
