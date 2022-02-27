@@ -16,5 +16,5 @@ db.init_app(app)
 # Initialize migrate
 migrate.init_app(app, db)
 
-from models import series_data  # noqa: F401, E402
-from views import entrypoint  # noqa: F401, E402
+import models  # noqa: F401, E402
+import views  # noqa: F401, E402

@@ -1,6 +1,6 @@
 """Raw series data for different pools."""
 # pyling: disable=too-few-public-methods
-from init.db import db
+from init import db
 from sqlalchemy import Column, DateTime, Float, Integer, String
 from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import relationship
