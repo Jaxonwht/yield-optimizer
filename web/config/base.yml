@@ -5,3 +5,6 @@ sqlalchemy:
 apy_api_worker:
   fetch_interval_seconds: 1
   insert_interval_seconds: 10
+
+yield_endpoint:
+  beefy: "https://api.beefy.finance/apy"

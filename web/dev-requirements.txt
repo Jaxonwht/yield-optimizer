@@ -10,8 +10,16 @@ alembic==1.7.6
     #   flask-migrate
 astroid==2.9.3
     # via pylint
+certifi==2021.10.8
+    # via
+    #   -r requirements.txt
+    #   requests
 cfgv==3.3.1
     # via pre-commit
+charset-normalizer==2.0.12
+    # via
+    #   -r requirements.txt
+    #   requests
 click==8.0.4
     # via
     #   -r requirements.txt
@@ -46,6 +54,10 @@ greenlet==1.1.2
     #   sqlalchemy
 identify==2.4.11
     # via pre-commit
+idna==3.3
+    # via
+    #   -r requirements.txt
+    #   requests
 isort==5.10.1
     # via pylint
 itsdangerous==2.1.0
@@ -74,7 +86,9 @@ mccabe==0.6.1
 msgpack==1.0.3
     # via pynvim
 mypy==0.931
-    # via -r dev-requirements.in
+    # via
+    #   -r dev-requirements.in
+    #   sqlalchemy-stubs
 mypy-extensions==0.4.3
     # via mypy
 neovim==0.3.1
@@ -120,6 +134,8 @@ qdldl==0.1.5.post0
     # via
     #   -r requirements.txt
     #   osqp
+requests==2.27.1
+    # via -r requirements.txt
 scipy==1.8.0
     # via
     #   -r requirements.txt
@@ -139,6 +155,8 @@ sqlalchemy==1.4.31
     #   -r requirements.txt
     #   alembic
     #   flask-sqlalchemy
+sqlalchemy-stubs==0.4
+    # via -r dev-requirements.in
 toml==0.10.2
     # via
     #   pre-commit
@@ -147,11 +165,20 @@ tomli==2.0.1
     # via mypy
 types-pyyaml==6.0.4
     # via -r dev-requirements.in
+types-requests==2.27.11
+    # via -r dev-requirements.in
+types-urllib3==1.26.9
+    # via types-requests
 typing-extensions==4.1.1
     # via
     #   astroid
     #   mypy
     #   pylint
+    #   sqlalchemy-stubs
+urllib3==1.26.8
+    # via
+    #   -r requirements.txt
+    #   requests
 virtualenv==20.13.2
     # via pre-commit
 werkzeug==2.0.3

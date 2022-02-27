@@ -1,10 +1,11 @@
 -r requirements.txt
 
 flake8
+mypy
+neovim
 pre-commit
 pycodestyle
 pylint
-types-pyyaml
-mypy
-neovim
 sqlalchemy-stubs
+types-pyyaml
+types-requests
