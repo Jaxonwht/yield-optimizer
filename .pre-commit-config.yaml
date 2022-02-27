@@ -6,6 +6,18 @@ repos:
       - id: end-of-file-fixer
       - id: check-ast
 
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.1.13
+    hooks:
+      - id: forbid-tabs
+      - id: remove-tabs
+        name: Replace tabs with white spaces for Python files
+        files: \.(py)$
+      - id: remove-tabs
+        name: Replace tabs with white spaces for non-Python files
+        files: ^.*\.(?!py$)[^.]+$
+        args: ["--whitespaces-count", "2"]
+
   - repo: https://github.com/PyCQA/flake8
     rev: 4.0.1
     hooks:
