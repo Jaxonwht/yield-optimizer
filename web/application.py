@@ -1,19 +1,20 @@
 """Entry point for flask app."""
 from flask import Flask
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
+from init import db, migrate
 from utils.config import get_config
 
 app = Flask(__name__)
+
+# Initialize config
 config = get_config()
 app.config["SQLALCHEMY_DATABASE_URI"] = config.postgres.uri
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = config.sqlalchemy.track_modifications
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+# Initialize db
+db.init_app(app)
 
+# Initialize migrate
+migrate.init_app(app, db)
 
-@app.route("/")
-def hello_world():
-    """Temporary entry point."""
-    return "<p>Hello, World!</p>"
+from models import series_data  # noqa: F401, E402
+from views import entrypoint  # noqa: F401, E402

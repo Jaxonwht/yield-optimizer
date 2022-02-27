@@ -40,9 +40,12 @@ that actually add the code into the images themselves via `COPY` or `ADD`.
 In development context, the Postgres server is running as a docker image. We use [Flask-Migrate](https://flask-migrate.readthedocs.io/en/latest/)
 to do automatic database migrations through SQLAlchemy. Normally you do not have to carry out migration
 unless you define a new SQLAlchemy model or modify an existing one. You cannot run `flask db <command>` directly
-because the web backend runs in a Docker container. There are two ways to run those commands.
+because the web backend runs in a Docker container. There are three ways to run those commands.
 
 ```bash
+# First make sure you start the web server and the Postgres server.
+docker compose up web_backend db
+
 # You can ssh into the web_backend server and run commands from within.
 docker compose exec web_backend /bin/bash
 flask db init
@@ -53,6 +56,14 @@ flask db upgrade
 docker compose run web_backend flask db init
 docker compose run web_backend flask db migrate -m "Some migration"
 docker compose run web_backend flask db upgrade
+
+# It's possible to run these commands from host because of port mapping.
+# Make sure your `FLASK_APP` is set to `application`.
+export FLASK_APP="application"
+# Then you can run the commands from your host.
+flask db init
+flask db migrate -m "Some migration"
+flask db upgrade
 ```
 
 Always double-check the auto-generated migration file before commiting to the upgrade.
