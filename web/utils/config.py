@@ -44,3 +44,6 @@ def get_config() -> Config:
     if yaml_data is None:
         raise ConfigInitializeException(f"config/{config_env} does not contain valid data")
     return Config(yaml_data)
+
+
+APPLICATION_CONFIG = get_config()

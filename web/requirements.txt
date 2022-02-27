@@ -6,6 +6,10 @@
 #
 alembic==1.7.6
     # via flask-migrate
+certifi==2021.10.8
+    # via requests
+charset-normalizer==2.0.12
+    # via requests
 click==8.0.4
     # via flask
 cvxpy==1.1.18
@@ -25,6 +29,8 @@ flask-sqlalchemy==2.5.1
     #   flask-migrate
 greenlet==1.1.2
     # via sqlalchemy
+idna==3.3
+    # via requests
 itsdangerous==2.1.0
     # via flask
 jinja2==3.0.3
@@ -52,6 +58,8 @@ pyyaml==6.0
     # via -r requirements.in
 qdldl==0.1.5.post0
     # via osqp
+requests==2.27.1
+    # via -r requirements.in
 scipy==1.8.0
     # via
     #   cvxpy
@@ -65,5 +73,7 @@ sqlalchemy==1.4.31
     # via
     #   alembic
     #   flask-sqlalchemy
+urllib3==1.26.8
+    # via requests
 werkzeug==2.0.3
     # via flask
