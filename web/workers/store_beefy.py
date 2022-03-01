@@ -39,7 +39,7 @@ def insert_yields(app: Flask) -> None:
                 for pool_name, apy in content_dict.items():
                     if apy is None or pool_name is None:
                         continue
-                    corresponding_pool_info = PoolInfo.query.get(pool_name)
+                    corresponding_pool_info = db.session.get(PoolInfo, pool_name)
                     if corresponding_pool_info is None:
                         corresponding_pool_info = PoolInfo(pool_name=pool_name)
                     db.session.add(
