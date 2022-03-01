@@ -43,11 +43,11 @@ unless you define a new SQLAlchemy model or modify an existing one. You cannot r
 because the web backend runs in a Docker container. There are three ways to run those commands.
 
 ```bash
-# First make sure you start the web server and the Postgres server.
-docker compose up web_backend db
+# First make sure you start the Postgres server.
+docker compose up db
 
 # You can ssh into the web_backend server and run commands from within.
-docker compose exec web_backend /bin/bash
+docker compose run web_backend /bin/bash
 flask db init
 flask db migrate -m "Some migration"
 flask db upgrade
@@ -65,5 +65,9 @@ flask db init
 flask db migrate -m "Some migration"
 flask db upgrade
 ```
+
+In most circumstances, this repository already has alemibc initialized, so you most likely do not
+need to run `flask db init`. If you just cloned the repository and need to have the latest database
+tables, you do not need to run any migration either. You can simply invoke the `flask db upgrade` command.
 
 Always double-check the auto-generated migration file before commiting to the upgrade.
