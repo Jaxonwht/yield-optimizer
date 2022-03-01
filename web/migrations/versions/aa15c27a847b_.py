@@ -21,7 +21,7 @@ def upgrade():
     op.create_table(
         "pool_info",
         sa.Column("pool_name", sa.String(length=50), nullable=False),
-        sa.Column("tokens", postgresql.ARRAY(sa.String(length=30)), nullable=False),
+        sa.Column("tokens", postgresql.ARRAY(sa.String(length=30))),
         sa.PrimaryKeyConstraint("pool_name"),
     )
     op.create_table(
