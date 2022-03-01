@@ -1,8 +1,8 @@
-"""Add apy series data and pool name data
+"""Modified apy model data
 
-Revision ID: 0d93b9beb34e
+Revision ID: aa15c27a847b
 Revises:
-Create Date: 2022-02-27 03:05:21.321008
+Create Date: 2022-03-01 00:55:18.169839
 
 """
 import sqlalchemy as sa
@@ -10,7 +10,7 @@ from alembic import op
 from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = "0d93b9beb34e"
+revision = "aa15c27a847b"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,14 +21,14 @@ def upgrade():
     op.create_table(
         "pool_info",
         sa.Column("pool_name", sa.String(length=50), nullable=False),
-        sa.Column("tokens", postgresql.ARRAY(sa.String()), nullable=True),
+        sa.Column("tokens", postgresql.ARRAY(sa.String(length=30)), nullable=False),
         sa.PrimaryKeyConstraint("pool_name"),
     )
     op.create_table(
         "apy_series_data",
         sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
         sa.Column("created_at", sa.DateTime(), nullable=True),
-        sa.Column("pool_info_name", sa.String(), nullable=False),
+        sa.Column("pool_info_name", sa.String(length=50), nullable=False),
         sa.Column("pool_yield", sa.Float(), nullable=False),
         sa.ForeignKeyConstraint(
             ["pool_info_name"],
