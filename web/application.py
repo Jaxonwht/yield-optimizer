@@ -37,7 +37,8 @@ def handle_processing_exception(exception: Exception):
     """Handle exceptions thrown during processing of an api request."""
 
     traceback.print_exc()
-    response = jsonify({"errorMessage": exception.message})
+    error_message = getattr(exception, "message", repr(exception))
+    response = jsonify({"errorMessage": error_message})
     response.status_code = 500
     return response
 
