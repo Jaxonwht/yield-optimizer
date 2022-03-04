@@ -52,10 +52,15 @@ flask db init
 flask db migrate -m "Some migration"
 flask db upgrade
 
+# To use psql in docker, run
+apt-get update
+apt-get install postgresql-client
+
 # You can also run these commands from the host directly.
 docker compose run web_backend flask db init
 docker compose run web_backend flask db migrate -m "Some migration"
 docker compose run web_backend flask db upgrade
+
 
 # It's possible to run these commands from host because of port mapping.
 # Make sure your `FLASK_APP` is set to `application`.
