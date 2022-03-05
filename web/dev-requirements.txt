@@ -167,7 +167,7 @@ types-pyyaml==6.0.4
     # via -r dev-requirements.in
 types-requests==2.27.11
     # via -r dev-requirements.in
-types-urllib3==1.26.9
+types-urllib3==1.26.10
     # via types-requests
 typing-extensions==4.1.1
     # via
