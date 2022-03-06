@@ -1,6 +1,7 @@
 """Raw series data for different pools."""
 # pylint: disable=too-few-public-methods
 from init import db
+from models.user_data import list_pool_association
 from sqlalchemy.dialects.postgresql import ARRAY
 
 
@@ -9,8 +10,10 @@ class ApySeriesData(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     created_at = db.Column(db.DateTime, default=db.func.now())
-    pool_info = db.relationship("PoolInfo", backref="apy_series_data", uselist=False)
-    pool_info_name = db.Column(db.String(50), db.ForeignKey("pool_info.pool_name"), nullable=False)
+    # For some complicated reasons explained in this stackoverflow post, we will have to add the delete logic
+    # in this relationship as well. https://stackoverflow.com/questions/5033547/sqlalchemy-cascade-delete
+    pool_info = db.relationship("PoolInfo", backref=db.backref("apy_series_data", passive_deletes=True), uselist=False)
+    pool_info_name = db.Column(db.String(50), db.ForeignKey("pool_info.pool_name", ondelete="CASCADE"), nullable=False)
     pool_yield = db.Column(db.Float, nullable=False)
 
 
@@ -19,3 +22,4 @@ class PoolInfo(db.Model):
 
     pool_name = db.Column(db.String(50), primary_key=True, nullable=False)
     tokens = db.Column(ARRAY(db.String(30)))
+    named_pool_lists = db.relationship("NamedPoolList", secondary=list_pool_association, back_populates="pool_infos")

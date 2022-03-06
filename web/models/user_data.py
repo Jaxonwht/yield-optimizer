@@ -13,4 +13,4 @@ class NamedPoolList(db.Model):
     """Named list of pools created by users."""
 
     list_name = db.Column(db.String(50), nullable=False, primary_key=True)
-    pool_infos = db.relationship("PoolInfo", secondary=list_pool_association, backref="named_pool_lists")
+    pool_infos = db.relationship("PoolInfo", secondary=list_pool_association, back_populates="named_pool_lists")
