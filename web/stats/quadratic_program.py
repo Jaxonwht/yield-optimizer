@@ -1,9 +1,7 @@
 """Quadratic problem solver."""
 import cvxpy
 import numpy
-
 from stats.result import QuadraticProgramResult
-
 
 _SALT_STANDARD_DEVIATION = 1e-5
 

@@ -2,7 +2,11 @@
 from typing import List
 
 from application import app
-from dal.pool_list_dal import create_or_append_pool_list, delete_pool_list_if_exists, get_pool_list_info
+from dal.pool_list_dal import (
+    create_or_append_pool_list,
+    delete_pool_list_if_exists,
+    get_pool_list_info,
+)
 from flask import jsonify, request
 from utils.exceptions import APIInvalidRequestException
 

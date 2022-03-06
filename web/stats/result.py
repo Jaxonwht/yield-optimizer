@@ -1,6 +1,7 @@
 """Data classes for various statistics results."""
-import numpy
 from typing import Iterable, NamedTuple, Tuple
+
+import numpy
 
 
 class OptimizerResult(NamedTuple):

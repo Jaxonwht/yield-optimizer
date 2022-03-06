@@ -3,7 +3,6 @@ from typing import Iterable, List, Tuple
 
 import cvxpy
 import numpy
-
 from stats.quadratic_program import solve_quadratic_program
 from stats.result import OptimizerResult
 from stats.soc_program import solve_soc_problem
