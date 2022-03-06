@@ -4,6 +4,11 @@
 
 Some set up instructions for local development.
 
+### Logging (Web Backend)
+
+In web backend, print statements will not appear in the console. Instead, you can import the `app` instance,
+and use `app.logger.info()` or `app.logger.error()` etc.
+
 ### Web Backend Setup
 
 This project uses Python 3.9. Please create a virtual environment and upgrade your pip.
