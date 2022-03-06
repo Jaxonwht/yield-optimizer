@@ -56,6 +56,8 @@ const config: Configuration = {
     }),
     new HtmlWebpackPlugin({
       template: join(resolve(__dirname), "public", "index.html"),
+      favicon: join(resolve(__dirname), "public", "beefy.ico"),
+      logo192: join(resolve(__dirname), "public", "beefy-192.png"),
     }),
   ],
 };
