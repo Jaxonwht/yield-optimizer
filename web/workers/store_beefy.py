@@ -34,19 +34,21 @@ def insert_yields(app: Flask, fifo_queue: queue.SimpleQueue, wait_event_obj: thr
         with app.app_context():
             for raw_content, fetch_timestamp in raw_contents:
                 content_dict = json.loads(raw_content)
-                for pool_name, apy in content_dict.items():
-                    if apy is None or pool_name is None:
-                        continue
-                    corresponding_pool_info = db.session.get(PoolInfo, pool_name)
-                    if corresponding_pool_info is None:
-                        corresponding_pool_info = PoolInfo(pool_name=pool_name)
-                    db.session.add(
-                        ApySeriesData(
-                            created_at=fetch_timestamp,
-                            pool_info=corresponding_pool_info,
-                            pool_yield=apy,
+                with db.session.no_autoflush:
+                    for pool_name, apy in content_dict.items():
+                        if apy is None or pool_name is None:
+                            continue
+                        corresponding_pool_info = db.session.get(PoolInfo, pool_name)
+                        if corresponding_pool_info is None:
+                            corresponding_pool_info = PoolInfo(pool_name=pool_name)
+                        db.session.add(
+                            ApySeriesData(
+                                created_at=fetch_timestamp,
+                                pool_info=corresponding_pool_info,
+                                pool_yield=apy,
+                            )
                         )
-                    )
+                        db.session.flush()
             db.session.commit()
         wait_event_obj.wait(APPLICATION_CONFIG.apy_api_worker.insert_interval_seconds)
 
