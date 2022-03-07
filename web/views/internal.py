@@ -1,6 +1,7 @@
 """API routes that are meant for developers."""
 from application import app
 from flask import jsonify, request
+from init import db
 from models.series_data import ApySeriesData
 
 
@@ -12,8 +13,5 @@ def get_raw_yields():
     """
     get_limit = int(request.args.get("get_limit", "10"))
     return jsonify(
-        tuple(
-            row._asdict()
-            for row in ApySeriesData.query.with_entities(ApySeriesData.pool_info_name, ApySeriesData.pool_yield).limit(get_limit).all()
-        )
+        tuple(row._asdict() for row in db.session.query(ApySeriesData.pool_info_name, ApySeriesData.pool_yield).limit(get_limit).all())
     )

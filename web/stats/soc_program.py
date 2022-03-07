@@ -1,7 +1,6 @@
 """Solve the second-order cone program to calculate the maximum yield."""
 import cvxpy
 import numpy
-
 from stats.result import SecondOrderConeProgramResult
 
 

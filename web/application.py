@@ -46,5 +46,4 @@ def handle_processing_exception(exception: Exception):
 # Start apy getters and inserters
 start_beefy_apy_workers(app)
 
-import models  # noqa: F401, E402
 import views  # noqa: F401, E402

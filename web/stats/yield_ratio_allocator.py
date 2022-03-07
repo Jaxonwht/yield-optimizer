@@ -3,7 +3,6 @@ from typing import Iterable, List, Tuple
 
 import cvxpy
 import numpy
-
 from stats.quadratic_program import solve_quadratic_program
 from stats.result import OptimizerResult
 from stats.soc_program import solve_soc_problem
@@ -35,7 +34,7 @@ def optimize_ratios(stats: Iterable[Tuple[str, List[float]]], k: float, minimum_
     quadratic_problem_result = solve_quadratic_program(covariance_matrix)
     if quadratic_problem_result.solver_status != cvxpy.OPTIMAL:
         print("Failed to compute a minimum possible variance")
-        return OptimizerResult(quadratic_problem_result.solver_status, 0.0, {})
+        return OptimizerResult(quadratic_problem_result.solver_status, 0.0, {}, 0.0)
 
     soc_problem_result = solve_soc_problem(apy_arr, covariance_matrix, quadratic_problem_result.minimum_value, k)
 
