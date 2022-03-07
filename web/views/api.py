@@ -4,6 +4,7 @@ from typing import List
 from application import app
 from dal.pool_list_dal import (
     create_or_append_pool_list,
+    delete_pool_if_exists,
     delete_pool_list_if_exists,
     get_pool_list_info,
 )
@@ -46,4 +47,13 @@ def delete_pool_list_by_name(list_name_to_delete: str):
     Delete a named list from database.
     """
     delete_pool_list_if_exists(list_name_to_delete)
+    return jsonify(success=True)
+
+
+@app.route("/delete-pool-by-name/<string:pool_name_to_delete>", methods=["DELETE"])
+def delete_pool_by_name(pool_name_to_delete: str):
+    """
+    Delete a pool from the databases.
+    """
+    delete_pool_if_exists(pool_name_to_delete)
     return jsonify(success=True)
