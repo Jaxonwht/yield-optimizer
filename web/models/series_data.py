@@ -8,7 +8,7 @@ class ApySeriesData(db.Model):
     """Raw data for APY yields."""
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    created_at = db.Column(db.DateTime, default=db.func.now())
+    created_at = db.Column(db.TIMESTAMP(timezone=True), nullable=False)
     # For some complicated reasons explained in this stackoverflow post, we will have to add the delete logic
     # in this relationship as well. https://stackoverflow.com/questions/5033547/sqlalchemy-cascade-delete
     pool_info = db.relationship(
