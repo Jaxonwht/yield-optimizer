@@ -3,6 +3,7 @@ version: "3.9"
 services:
   web_backend:
     build:
+      context: ./
       dockerfile: Dockerfile.web_dev
     ports:
       - "5000:5000"
@@ -16,9 +17,10 @@ services:
       - backend
   client:
     build:
+      context: ./
       dockerfile: Dockerfile.client_dev
     ports:
-      - "3000:3000"
+      - "3001:3000"
     networks:
       - frontend
     volumes:
