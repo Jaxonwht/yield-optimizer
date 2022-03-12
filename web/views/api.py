@@ -12,7 +12,7 @@ from flask import jsonify, request
 from utils.exceptions import APIInvalidRequestException
 
 
-@app.route("/add-pool-list", methods=["PUT", "PATCH", "POST"])
+@app.route("/add-pool-list", methods=["PUT"])
 def add_pool_list():
     """
     Add a list of your favorite pools to the `pool_list` database.
