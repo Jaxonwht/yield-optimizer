@@ -2,6 +2,7 @@
 from typing import List
 
 from application import app
+from dal.pool_info_dal import get_all_pool_infos
 from dal.pool_list_dal import (
     create_or_append_pool_list,
     delete_pool_if_exists,
@@ -57,3 +58,12 @@ def delete_pool_by_name(pool_name_to_delete: str):
     """
     delete_pool_if_exists(pool_name_to_delete)
     return jsonify(success=True)
+
+
+@app.route("/get-all-pools", methods=["GET"])
+def get_all_pools():
+    """
+    Get the names of all the pools stored in db.
+    """
+    pool_infos = get_all_pool_infos()
+    return jsonify(tuple(pool_info.pool_name for pool_info in pool_infos))
