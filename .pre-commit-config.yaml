@@ -45,3 +45,16 @@ repos:
     rev: v2.5.1
     hooks:
       - id: prettier
+
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v1.4
+    hooks:
+      - id: autoflake
+        entry: autoflake
+        language: python
+        "types": [python]
+        require_serial: true
+        args:
+          - --in-place
+          - --ignore-init-module-imports
+          - --remove-all-unused-imports

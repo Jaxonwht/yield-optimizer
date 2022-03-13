@@ -60,7 +60,7 @@ idna==3.3
     #   requests
 isort==5.10.1
     # via pylint
-itsdangerous==2.1.0
+itsdangerous==2.1.1
     # via
     #   -r requirements.txt
     #   flask
@@ -70,7 +70,7 @@ jinja2==3.0.3
     #   flask
 lazy-object-proxy==1.7.1
     # via astroid
-mako==1.1.6
+mako==1.2.0
     # via
     #   -r requirements.txt
     #   alembic
@@ -85,7 +85,7 @@ mccabe==0.6.1
     #   pylint
 msgpack==1.0.3
     # via pynvim
-mypy==0.931
+mypy==0.940
     # via
     #   -r dev-requirements.in
     #   sqlalchemy-stubs
@@ -126,6 +126,8 @@ pylint==2.12.2
     # via -r dev-requirements.in
 pynvim==0.4.3
     # via neovim
+python-dateutil==2.8.2
+    # via -r requirements.txt
 pyyaml==6.0
     # via
     #   -r requirements.txt
@@ -149,8 +151,11 @@ scs==3.2.0
     #   -r requirements.txt
     #   cvxpy
 six==1.16.0
-    # via virtualenv
-sqlalchemy==1.4.31
+    # via
+    #   -r requirements.txt
+    #   python-dateutil
+    #   virtualenv
+sqlalchemy==1.4.32
     # via
     #   -r requirements.txt
     #   alembic
@@ -179,7 +184,7 @@ urllib3==1.26.8
     # via
     #   -r requirements.txt
     #   requests
-virtualenv==20.13.2
+virtualenv==20.13.3
     # via pre-commit
 werkzeug==2.0.3
     # via
