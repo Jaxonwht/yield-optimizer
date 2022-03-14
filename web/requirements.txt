@@ -47,15 +47,22 @@ numpy==1.22.2
     #   cvxpy
     #   ecos
     #   osqp
+    #   pandas
     #   qdldl
     #   scipy
     #   scs
 osqp==0.6.2.post5
     # via cvxpy
+pandas==1.4.1
+    # via -r requirements.in
 psycopg2-binary==2.9.3
     # via -r requirements.in
 python-dateutil==2.8.2
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   pandas
+pytz==2021.3
+    # via pandas
 pyyaml==6.0
     # via -r requirements.in
 qdldl==0.1.5.post0

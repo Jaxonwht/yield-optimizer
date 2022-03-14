@@ -101,6 +101,7 @@ numpy==1.22.2
     #   cvxpy
     #   ecos
     #   osqp
+    #   pandas
     #   qdldl
     #   scipy
     #   scs
@@ -108,6 +109,8 @@ osqp==0.6.2.post5
     # via
     #   -r requirements.txt
     #   cvxpy
+pandas==1.4.1
+    # via -r requirements.txt
 platformdirs==2.5.1
     # via
     #   pylint
@@ -127,7 +130,13 @@ pylint==2.12.2
 pynvim==0.4.3
     # via neovim
 python-dateutil==2.8.2
-    # via -r requirements.txt
+    # via
+    #   -r requirements.txt
+    #   pandas
+pytz==2021.3
+    # via
+    #   -r requirements.txt
+    #   pandas
 pyyaml==6.0
     # via
     #   -r requirements.txt

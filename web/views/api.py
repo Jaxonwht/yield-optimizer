@@ -12,6 +12,8 @@ from dal.pool_list_dal import (
 )
 from dateutil.parser import parse
 from flask import jsonify, request
+from sampling.sampling import resample
+from stats.yield_ratio_allocator import optimize_ratios
 from utils.exceptions import APIInvalidRequestException
 
 
@@ -93,3 +95,42 @@ def get_pool_yields_by_pool_names():
         end_time = parse(end_time)
 
     return jsonify(tuple(get_pools_yields(pool_names, start_time, end_time)))
+
+
+@app.route("/get-optimized-allocation-by-pool-names", methods=["GET"])
+def get_optimized_allocation_by_pool_names():
+    """
+    Given a list of pool names passed in as `pool_names`, a float `k`, and a resampling interval,
+    returns a `OptimizerResult` object as a list. See `stats.yield_ratio_allocator.optimize_ratios`
+    for more details on how to select `k`. See
+    https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects
+    for more details on how to select a resampling interval.
+    """
+    pool_names = request.args.getlist("pool_names")
+    if not pool_names:
+        raise APIInvalidRequestException("Must supply a list of pool names!")
+
+    k = request.args.get("k")
+    if not k:
+        raise APIInvalidRequestException("Must supply a k!")
+    k = float(k)
+
+    resampling_interval = request.args.get("resampling_interval")
+    if not resampling_interval:
+        raise APIInvalidRequestException("Must supply an interval for resampling!")
+
+    start_time = request.args.get("start_time")
+    end_time = request.args.get("end_time")
+    if not start_time:
+        start_time = datetime.min
+    else:
+        start_time = parse(start_time)
+
+    if not end_time:
+        end_time = datetime.max
+    else:
+        end_time = parse(end_time)
+
+    resampled_iterable = resample(pools_yields=get_pools_yields(pool_names, start_time, end_time), resampling_interval=resampling_interval)
+    result = optimize_ratios(stats=resampled_iterable, k=k)
+    return jsonify(result)
