@@ -4,7 +4,7 @@
 #
 #    pip-compile dev-requirements.in
 #
-alembic==1.7.6
+alembic==1.7.7
     # via
     #   -r requirements.txt
     #   flask-migrate
@@ -52,7 +52,7 @@ greenlet==1.1.2
     #   -r requirements.txt
     #   pynvim
     #   sqlalchemy
-identify==2.4.11
+identify==2.4.12
     # via pre-commit
 idna==3.3
     # via
@@ -74,7 +74,7 @@ mako==1.2.0
     # via
     #   -r requirements.txt
     #   alembic
-markupsafe==2.1.0
+markupsafe==2.1.1
     # via
     #   -r requirements.txt
     #   jinja2
@@ -85,7 +85,7 @@ mccabe==0.6.1
     #   pylint
 msgpack==1.0.3
     # via pynvim
-mypy==0.940
+mypy==0.941
     # via
     #   -r dev-requirements.in
     #   sqlalchemy-stubs
@@ -133,7 +133,7 @@ python-dateutil==2.8.2
     # via
     #   -r requirements.txt
     #   pandas
-pytz==2021.3
+pytz==2022.1
     # via
     #   -r requirements.txt
     #   pandas
@@ -177,11 +177,11 @@ toml==0.10.2
     #   pylint
 tomli==2.0.1
     # via mypy
-types-pyyaml==6.0.4
+types-pyyaml==6.0.5
     # via -r dev-requirements.in
-types-requests==2.27.11
+types-requests==2.27.14
     # via -r dev-requirements.in
-types-urllib3==1.26.10
+types-urllib3==1.26.11
     # via types-requests
 typing-extensions==4.1.1
     # via
@@ -189,11 +189,13 @@ typing-extensions==4.1.1
     #   mypy
     #   pylint
     #   sqlalchemy-stubs
-urllib3==1.26.8
+urllib3==1.26.9
     # via
     #   -r requirements.txt
     #   requests
-virtualenv==20.13.3
+uwsgi==2.0.20
+    # via -r requirements.txt
+virtualenv==20.13.4
     # via pre-commit
 werkzeug==2.0.3
     # via
