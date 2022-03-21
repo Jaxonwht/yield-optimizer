@@ -12,4 +12,4 @@ RUN pip install -U pip wheel \
 WORKDIR /web
 
 ENV FLASK_APP application
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["bash", "-c", "flask db upgrade && flask run --host=0.0.0.0"]
