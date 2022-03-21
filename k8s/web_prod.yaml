@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
- name: postgres
+ name: web-prod
 spec:
  strategy:
    rollingUpdate:
@@ -11,15 +11,15 @@ spec:
  replicas: 1
  selector:
    matchLabels:
-     app: postgres
+     app: web-prod
  template:
    metadata:
      labels:
-       app: postgres
+       app: web-prod
    spec:
      containers:
-       - name: postgres
-         image: postgres:14.2-alpine
+       - name: web-prod
+         image: us-central1-docker.pkg.dev/yield-optimizer/yield-optimizer/web:latest
          resources:
            limits:
              cpu: "1"
@@ -30,28 +30,17 @@ spec:
          ports:
            - containerPort: 5432
          env:
-           - name: POSTGRES_USER
-             value: postgres
-           - name: POSTGRES_PASSWORD
-             value: postgres
-           - name: POSTGRES_DB
-             value: web_prod
-           - name: PGDATA
-             value: /var/lib/postgresql/data/pgdata
-         volumeMounts:
-           - mountPath: /var/lib/postgresql/data
-             name: postgredb
-     volumes:
-       - name: postgredb
-         persistentVolumeClaim:
-           claimName: postgresql-pv
+           - name: FLASK_ENV
+             value: production
+           - name: CONFIG_ENV
+             value: prod.yml
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgres
+  name: web-prod
 spec:
   ports:
-    - port: 5432
+    - port: 5000
   selector:
-    app: postgres
+    app: web-prod
