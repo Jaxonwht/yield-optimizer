@@ -14,4 +14,4 @@ WORKDIR /web
 COPY web .
 
 ENV FLASK_APP application
-CMD ["bash", "-c", "flask db upgrade && uwsgi --http-socket :5000 --manage-script-name --mount /=application:app"]
+CMD ["bash", "-c", "flask db upgrade && uwsgi uwsgi.ini"]
