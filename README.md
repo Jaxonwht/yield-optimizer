@@ -32,7 +32,7 @@ into [web/config/base.yml](web/config/base.yml) recursively to produce the final
 You can run `docker compose build && docker compose up` to spin up a development server.
 
 - The web backend server is accessible at `localhost:5000`.
-- The React web client will run at `localhost:3000`.
+- The React web client will run at `localhost:3001`.
 - The postgres server will run at `localhost:5432`.
 
 During development, the code to run both React and Flask will be mounted into the docker container

@@ -1,4 +1,4 @@
-FROM node:16.14-slim
+FROM node:16.14-slim AS build_stage
 
 WORKDIR /code/client
 
@@ -10,5 +10,10 @@ RUN npm ci
 
 COPY ./client .
 
+RUN npm run build:prod
 
-CMD ["npm", "run", "start"]
+FROM nginx:1.21.6-alpine
+
+COPY --from=build_stage /code/client/build /usr/share/nginx/html
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
