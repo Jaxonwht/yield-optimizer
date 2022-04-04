@@ -10,7 +10,7 @@ certifi==2021.10.8
     # via requests
 charset-normalizer==2.0.12
     # via requests
-click==8.0.4
+click==8.1.2
     # via flask
 cvxpy==1.1.18
     # via -r requirements.in
@@ -19,8 +19,11 @@ ecos==2.0.10
 flask==2.0.3
     # via
     #   -r requirements.in
+    #   flask-cors
     #   flask-migrate
     #   flask-sqlalchemy
+flask-cors==3.0.10
+    # via -r requirements.in
 flask-migrate==3.1.0
     # via -r requirements.in
 flask-sqlalchemy==2.5.1
@@ -31,9 +34,9 @@ greenlet==1.1.2
     # via sqlalchemy
 idna==3.3
     # via requests
-itsdangerous==2.1.1
+itsdangerous==2.1.2
     # via flask
-jinja2==3.0.3
+jinja2==3.1.1
     # via flask
 mako==1.2.0
     # via alembic
@@ -65,7 +68,7 @@ pytz==2022.1
     # via pandas
 pyyaml==6.0
     # via -r requirements.in
-qdldl==0.1.5.post0
+qdldl==0.1.5.post2
     # via osqp
 requests==2.27.1
     # via -r requirements.in
@@ -79,8 +82,10 @@ scipy==1.8.0
 scs==3.2.0
     # via cvxpy
 six==1.16.0
-    # via python-dateutil
-sqlalchemy==1.4.32
+    # via
+    #   flask-cors
+    #   python-dateutil
+sqlalchemy==1.4.34
     # via
     #   alembic
     #   flask-sqlalchemy
@@ -88,5 +93,5 @@ urllib3==1.26.9
     # via requests
 uwsgi==2.0.20
     # via -r requirements.in
-werkzeug==2.0.3
+werkzeug==2.1.1
     # via flask

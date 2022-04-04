@@ -45,6 +45,17 @@ repos:
     rev: v2.5.1
     hooks:
       - id: prettier
+        args:
+          - --arrow-parens
+          - avoid
+          - --end-of-line
+          - auto
+          - --ignore-path
+          - --loglevel
+          - warn
+          - --no-config
+          - --no-editorconfig
+          - --write
 
   - repo: https://github.com/PyCQA/autoflake
     rev: v1.4

@@ -2,12 +2,14 @@
 import traceback
 
 from flask import Flask, jsonify
+from flask_cors import CORS
 from init import db, migrate
 from utils.config import APPLICATION_CONFIG
 from utils.exceptions import APIInvalidRequestException
 from workers.store_beefy import start_beefy_apy_workers
 
 app = Flask(__name__)
+CORS(app, origins=[r"^https?:\/\/localhost:\d+$"])
 
 # Initialize config
 config = APPLICATION_CONFIG
