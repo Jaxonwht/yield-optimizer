@@ -46,13 +46,10 @@ repos:
     hooks:
       - id: prettier
         args:
-          - --arrow-parens
-          - avoid
-          - --end-of-line
-          - auto
+          - --arrow-parens=avoid
+          - --end-of-line=auto
           - --ignore-path
-          - --loglevel
-          - warn
+          - --loglevel=warn
           - --no-config
           - --no-editorconfig
           - --write
