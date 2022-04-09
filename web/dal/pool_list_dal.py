@@ -34,6 +34,13 @@ def get_pool_list_info(list_name: str) -> List[PoolInfo]:
     return named_pool_list.pool_infos
 
 
+def get_all_named_pool_lists() -> List[NamedPoolList]:
+    """
+    Get all the stored named Pool lists.
+    """
+    return NamedPoolList.query.all()
+
+
 def delete_pool_list_if_exists(list_name: str) -> None:
     """
     Delete a named list if the list exists. Do not delete the associated pools.

@@ -7,7 +7,7 @@ const Pools = () => {
   const onClick = React.useCallback(async () => {
     try {
       const response = await axios.get("/get-all-pools");
-      setPoolList(response.data);
+      setPoolList((response.data as string[])?.slice(0, 20));
     } catch (err) {
       console.error(err);
     }

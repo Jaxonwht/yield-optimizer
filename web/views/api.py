@@ -8,6 +8,7 @@ from dal.pool_list_dal import (
     create_or_append_pool_list,
     delete_pool_if_exists,
     delete_pool_list_if_exists,
+    get_all_named_pool_lists,
     get_pool_list_info,
 )
 from dateutil.parser import parse
@@ -33,6 +34,14 @@ def add_pool_list():
     pool_list: List[str] = request_json.get("pool_list", [])
     create_or_append_pool_list(list_name=list_name, pool_list=pool_list)
     return jsonify(success=True)
+
+
+@app.route("/get-all-pool-list-names", methods=["GET"])
+def get_all_pool_list_names():
+    """
+    Get the names of all the stored Pool Lists in the database
+    """
+    return jsonify(tuple(pool_list.list_name for pool_list in get_all_named_pool_lists()))
 
 
 @app.route("/get-pools-by-list-name/<string:queried_list_name>", methods=["GET"])

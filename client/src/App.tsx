@@ -14,6 +14,8 @@ function App() {
           <Link to="/home">Home</Link>
           <br />
           <Link to="/pools">Pools</Link>
+          <br />
+          <Link to="/pool-lists">Pool Lists</Link>
         </li>
       </ul>
       <hr />
