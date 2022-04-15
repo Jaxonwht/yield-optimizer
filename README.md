@@ -80,7 +80,7 @@ Always double-check the auto-generated migration file before commiting to the up
 
 
 
-## GCP cluster deployment
+### GCP cluster deployment
 1. `docker build . -f Dockerfile.web -t us-central1-docker.pkg.dev/yield-optimizer/yield-optimizer/web:latest`
 2. `docker build . -f Dockerfile.client -t us-central1-docker.pkg.dev/yield-optimizer/yield-optimizer/client:latest`
 3. `docker push us-central1-docker.pkg.dev/yield-optimizer/yield-optimizer/web:latest`
