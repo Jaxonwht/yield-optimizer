@@ -1,2 +1,2 @@
 postgres:
-  uri: postgresql://postgres:postgres@10.34.129.13:5432/web_prod
+  uri: postgresql://postgres:postgres@postgres:5432/web_prod
