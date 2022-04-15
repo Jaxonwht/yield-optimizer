@@ -77,3 +77,9 @@ need to run `flask db init`. If you just cloned the repository and need to have 
 tables, you do not need to run any migration either. You can simply invoke the `flask db upgrade` command.
 
 Always double-check the auto-generated migration file before commiting to the upgrade.
+
+
+
+## GCP cluster deployment
+`gcloud container clusters get-credentials yield-optimizer --region us-central1`
+`kubectl apply -f k8/`
