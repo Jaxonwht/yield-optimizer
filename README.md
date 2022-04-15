@@ -81,6 +81,6 @@ Always double-check the auto-generated migration file before commiting to the up
 
 
 ## GCP cluster deployment
+1. `docker build . -f Dockerfile.web -t us-central1-docker.pkg.dev/yield-optimizer/yield-optimizer/web:latest`
 1. `gcloud container clusters get-credentials yield-optimizer --region us-central1`
 2. `kubectl apply -f k8/`
-3. `docker build . -f Dockerfile.web -t us-central1-docker.pkg.dev/yield-optimizer/yield-optimizer/web:latest`
