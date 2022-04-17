@@ -130,7 +130,7 @@ pycodestyle==2.8.0
     #   flake8
 pyflakes==2.4.0
     # via flake8
-pylint==2.13.4
+pylint==2.13.5
     # via -r dev-requirements.in
 pynvim==0.4.3
     # via neovim
@@ -170,7 +170,7 @@ six==1.16.0
     #   flask-cors
     #   python-dateutil
     #   virtualenv
-sqlalchemy==1.4.34
+sqlalchemy==1.4.35
     # via
     #   -r requirements.txt
     #   alembic
@@ -183,11 +183,11 @@ tomli==2.0.1
     # via
     #   mypy
     #   pylint
-types-pyyaml==6.0.5
+types-pyyaml==6.0.6
     # via -r dev-requirements.in
-types-requests==2.27.16
+types-requests==2.27.19
     # via -r dev-requirements.in
-types-urllib3==1.26.11
+types-urllib3==1.26.13
     # via types-requests
 typing-extensions==4.1.1
     # via
@@ -201,7 +201,7 @@ urllib3==1.26.9
     #   requests
 uwsgi==2.0.20
     # via -r requirements.txt
-virtualenv==20.14.0
+virtualenv==20.14.1
     # via pre-commit
 werkzeug==2.1.1
     # via
