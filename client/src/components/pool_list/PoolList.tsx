@@ -7,18 +7,18 @@ const PoolList = () => {
   const [poolListNames, setPoolListNames] = React.useState<string[]>([]);
   const [isAddingPoolList, setIsAddingPoolList] = React.useState(false);
 
-  const onClickAdd = React.useCallback(() => setIsAddingPoolList(true), []);
+  const onClickAdd = () => setIsAddingPoolList(true);
 
-  const onCloseAdd = React.useCallback(() => setIsAddingPoolList(false), []);
+  const onCloseAdd = () => setIsAddingPoolList(false);
 
-  const onClickGet = React.useCallback(async () => {
+  const onClickGet = async () => {
     try {
       const response = await axios.get("/get-all-pool-list-names");
       setPoolListNames((response.data as string[])?.slice(0, 20));
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  };
 
   return (
     <>

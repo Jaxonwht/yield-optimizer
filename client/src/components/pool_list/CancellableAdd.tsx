@@ -6,24 +6,22 @@ interface CancellableAddProps {
   onSubmitOrCancel?: () => void;
 }
 
+const onTextFieldChange =
+  (setStateFunction: (newStateValue: string) => void) =>
+  (event: React.ChangeEvent<HTMLInputElement>) =>
+    setStateFunction(event.target.value);
+
 const CancellableAdd = ({ onSubmitOrCancel }: CancellableAddProps) => {
   const [poolListName, setPoolListName] = React.useState<string>("");
   const [poolNames, setPoolNames] = React.useState<string>("");
 
-  const onTextFieldChange = React.useCallback(
-    (setStateFunction: (newStateValue: string) => void) =>
-      (event: React.ChangeEvent<HTMLInputElement>) =>
-        setStateFunction(event.target.value),
-    []
-  );
-
-  const finisher = React.useCallback(() => {
+  const finisher = () => {
     setPoolListName("");
     setPoolNames("");
     onSubmitOrCancel?.();
-  }, [onSubmitOrCancel]);
+  };
 
-  const onClickSubmit = React.useCallback(async () => {
+  const onClickSubmit = async () => {
     try {
       await axios.put("add-pool-list", {
         list_name: poolListName,
@@ -33,7 +31,7 @@ const CancellableAdd = ({ onSubmitOrCancel }: CancellableAddProps) => {
     } catch (error) {
       console.error(error);
     }
-  }, [poolListName, poolNames, finisher]);
+  };
 
   return (
     <>
