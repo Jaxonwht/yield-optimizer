@@ -1,11 +1,31 @@
 import * as React from "react";
 import axios from "axios";
-import { ListItem, List, Button, ListItemText } from "@mui/material";
+import { List, Button, ListItemText, ListItemButton } from "@mui/material";
 import CancellableAdd from "./CancellableAdd";
+import { PoolInList } from "../api_response/types";
 
 const PoolList = () => {
   const [poolListNames, setPoolListNames] = React.useState<string[]>([]);
   const [isAddingPoolList, setIsAddingPoolList] = React.useState(false);
+  const [isShowingPoolList, setIsShowingPoolList] = React.useState(false);
+  const [poolsInList, setPoolsInList] = React.useState<string[]>([]);
+
+  const handleClickOnPoolList = React.useCallback(
+    (poolListName: string) => async () => {
+      setIsShowingPoolList(prevState => !prevState);
+      try {
+        const response = await axios.get(
+          `/get-pools-by-list-name/${poolListName}`
+        );
+        setPoolsInList(
+          (response.data as PoolInList[])?.map(info => info.pool_name)
+        );
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    []
+  );
 
   const onClickAdd = () => setIsAddingPoolList(true);
 
@@ -27,9 +47,18 @@ const PoolList = () => {
       </Button>
       <List>
         {poolListNames.map(poolListName => (
-          <ListItem key={poolListName}>
-            <ListItemText primary={poolListName} />
-          </ListItem>
+          <React.Fragment key={poolListName}>
+            <ListItemButton onClick={handleClickOnPoolList(poolListName)}>
+              <ListItemText primary={poolListName} />
+            </ListItemButton>
+            {isShowingPoolList && (
+              <List>
+                {poolsInList.map(poolName => {
+                  return <ListItemText key={poolName} primary={poolName} />;
+                })}
+              </List>
+            )}
+          </React.Fragment>
         ))}
       </List>
       {isAddingPoolList ? (

@@ -49,6 +49,7 @@ const config: Configuration = {
     static: join(resolve(__dirname), "build"),
     compress: true,
     port: 3000,
+    historyApiFallback: true,
   },
   plugins: [
     new ForkTsCheckerWebpackPlugin({
