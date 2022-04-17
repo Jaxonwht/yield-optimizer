@@ -36,6 +36,8 @@ metadata:
   name: client-prod
 spec:
   ports:
-    - port: 3000
+    - port: 80
+      targetPort: 80
   selector:
     app: client-prod
+  type: LoadBalancer
