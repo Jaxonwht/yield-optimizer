@@ -86,5 +86,5 @@ Always double-check the auto-generated migration file before commiting to the up
 3. `docker push us-central1-docker.pkg.dev/yield-optimizer/yield-optimizer/web:latest`
 4. `docker push us-central1-docker.pkg.dev/yield-optimizer/yield-optimizer/client:latest`
 5. `gcloud container clusters get-credentials yield-optimizer --region us-central1`
-6. `kubectl apply -f k8/`
-7. `kubectl delete -f k8/`
+6. `kubectl apply -f k8s/`
+7. `kubectl delete -f k8s/`
