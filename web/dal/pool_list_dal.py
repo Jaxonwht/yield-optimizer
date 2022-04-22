@@ -17,7 +17,7 @@ def create_or_append_pool_list(list_name: str, pool_list: List[str]) -> None:
     for pool_name in pool_list:
         pool_info = db.session.get(PoolInfo, pool_name)
         if not pool_info:
-            pool_info = PoolInfo(pool_name=pool_name)
+            raise Exception(f"Entered pool name {pool_name} does not exist")
         named_pool_list.pool_infos.append(pool_info)
     db.session.add(named_pool_list)
     db.session.commit()
