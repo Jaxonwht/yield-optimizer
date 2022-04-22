@@ -41,7 +41,7 @@ const PoolListEntry = (props: PoolListEntryProps) => {
   };
 
   return (
-    <React.Fragment key={props.poolListName}>
+    <>
       <ListItemButton onClick={handleClickOnPoolList(props.poolListName)}>
         <ListItemText primary={props.poolListName} />
         <DeleteIcon onClick={event => handleTrashCanClicked(event)} />
@@ -53,7 +53,7 @@ const PoolListEntry = (props: PoolListEntryProps) => {
           })}
         </List>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
