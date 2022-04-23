@@ -41,14 +41,14 @@ const CancellableAdd = ({ onSubmitOrCancel }: CancellableAddProps) => {
         variant="standard"
         value={poolListName}
         onChange={onTextFieldChange(setPoolListName)}
-      ></TextField>
+      />
       <TextField
         id="pool-names"
         label="pool names"
         variant="standard"
         value={poolNames}
         onChange={onTextFieldChange(setPoolNames)}
-      ></TextField>
+      />
       <Button onClick={onClickSubmit}>Submit</Button>
       <Button onClick={finisher}>Cancel</Button>
     </>
