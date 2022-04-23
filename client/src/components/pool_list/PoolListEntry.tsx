@@ -6,7 +6,7 @@ import { PoolInList } from "../api_response/types";
 
 interface PoolListEntryProps {
   poolListName: string;
-  onDeleteClicked?: () => void;
+  onDeleteClicked?: (poolListName: string) => void;
 }
 
 const PoolListEntry = (props: PoolListEntryProps) => {
@@ -34,7 +34,7 @@ const PoolListEntry = (props: PoolListEntryProps) => {
     event.stopPropagation();
     try {
       await axios.delete(`/delete-pool-list-by-name/${props.poolListName}`);
-      props.onDeleteClicked?.();
+      props.onDeleteClicked?.(props.poolListName);
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +44,7 @@ const PoolListEntry = (props: PoolListEntryProps) => {
     <>
       <ListItemButton onClick={handleClickOnPoolList(props.poolListName)}>
         <ListItemText primary={props.poolListName} />
-        <DeleteIcon onClick={event => handleTrashCanClicked(event)} />
+        <DeleteIcon onClick={handleTrashCanClicked} />
       </ListItemButton>
       {isShowingPoolList && (
         <List>

@@ -18,7 +18,14 @@ const PoolList = () => {
   };
 
   const removePoolList = (poolListName: string) =>
-    setPoolListNames(poolListNames.filter(name => name != poolListName));
+    setPoolListNames(prevPoolListNames =>
+      prevPoolListNames.filter(name => name != poolListName)
+    );
+
+  const onDeleteClicked = React.useCallback(
+    (poolListName: string) => removePoolList(poolListName),
+    []
+  );
 
   return (
     <>
@@ -30,7 +37,7 @@ const PoolList = () => {
           <PoolListEntry
             key={poolListName}
             poolListName={poolListName}
-            onDeleteClicked={() => removePoolList(poolListName)}
+            onDeleteClicked={onDeleteClicked}
           />
         ))}
       </List>
