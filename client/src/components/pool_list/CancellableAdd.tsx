@@ -1,4 +1,5 @@
 import * as React from "react";
+import { splitCommaSeparatedString } from "utils/stringUtils";
 import { Button, TextField } from "@mui/material";
 import axios from "axios";
 
@@ -25,7 +26,7 @@ const CancellableAdd = ({ onSubmitOrCancel }: CancellableAddProps) => {
     try {
       await axios.put("add-pool-list", {
         list_name: poolListName,
-        pool_list: poolNames?.split(","),
+        pool_list: poolNames && splitCommaSeparatedString(poolNames),
       });
       finisher();
     } catch (error) {

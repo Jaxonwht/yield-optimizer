@@ -1,7 +1,6 @@
 import * as React from "react";
 import axios from "axios";
 import { ListItem, List, Button, ListItemText, TextField } from "@mui/material";
-import { SingleEntryPlugin } from "webpack";
 
 const Pools = () => {
   const [poolList, setPoolList] = React.useState<string[]>([]);
@@ -21,8 +20,6 @@ const Pools = () => {
   const onSearchNameChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    await new Promise(r => setTimeout(r, 5000));
-    console.log(event.target.value);
     setSearchName(event.target.value);
     if (Date.now() - lastQueryTime >= 60 * 1000) {
       // 60s

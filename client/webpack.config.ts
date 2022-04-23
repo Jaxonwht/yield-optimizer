@@ -39,6 +39,7 @@ const config: Configuration = {
     ],
   },
   resolve: {
+    modules: [resolve(__dirname, "src"), "node_modules"],
     extensions: [".tsx", ".jsx", ".ts", ".js", ".css"],
   },
   output: {
