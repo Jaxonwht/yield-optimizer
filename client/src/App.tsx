@@ -16,6 +16,8 @@ function App() {
           <Link to="/pools">Pools</Link>
           <br />
           <Link to="/pool-lists">Pool Lists</Link>
+          <br />
+          <Link to="/optimizer">Optimizer</Link>
         </li>
       </ul>
       <hr />
