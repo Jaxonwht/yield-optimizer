@@ -15,6 +15,7 @@ def resample(pools_yields: Iterable[Tuple[str, List[datetime], List[float]]], re
     interpolated_dataframes = []
     for pool_name, timestamps, yields in pools_yields:
         df = pd.DataFrame({"timestamps": timestamps, "yields": yields})
+        df = df.drop_duplicates(subset="timestamps")
         df = df.set_index("timestamps")
         df = df.resample(resampling_interval).fillna(method="nearest")
         first_timestamp, last_timestamp = df.index[0], df.index[-1]
