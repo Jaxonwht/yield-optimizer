@@ -9,3 +9,10 @@ export interface OptimizerResult {
   allocation_ratios: Array<[string, number]>;
   estimated_standard_deviation: number;
 }
+
+export interface PoolInformation {
+  loading: boolean;
+  tokens?: string[];
+  mean_yield?: number;
+  standard_deviation?: number;
+}

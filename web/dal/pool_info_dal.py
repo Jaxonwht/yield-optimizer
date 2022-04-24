@@ -14,6 +14,10 @@ def get_all_pool_infos() -> List[PoolInfo]:
     return db.session.query(PoolInfo).all()
 
 
+def get_tokens_by_pool_name(pool_name: str) -> List[str]:
+    return db.session.get(PoolInfo, pool_name).tokens
+
+
 def get_pool_yields(pool_name: str) -> Iterable[Tuple[datetime, float]]:
     """
     Return a list of ApySeriesData sorted by `created_at` for the given `pool_name`.

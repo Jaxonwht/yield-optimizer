@@ -1,9 +1,15 @@
 """API routes that handle basic features."""
+import statistics
 from datetime import datetime
 from typing import List
 
 from application import app
-from dal.pool_info_dal import get_all_pool_infos, get_pools_yields
+from dal.pool_info_dal import (
+    get_all_pool_infos,
+    get_pool_yields,
+    get_pools_yields,
+    get_tokens_by_pool_name,
+)
 from dal.pool_list_dal import (
     create_or_append_pool_list,
     delete_pool_if_exists,
@@ -54,6 +60,22 @@ def get_pools_by_list_name(queried_list_name: str):
     If the requested list name does not exist in the database. An empty list is returned.
     """
     return jsonify(tuple({"pool_name": info.pool_name, "tokens": info.tokens} for info in get_pool_list_info(queried_list_name)))
+
+
+@app.route("/get-information-about-pool/<string:pool_name>", methods=["GET"])
+def get_information_about_pool(pool_name: str):
+    """
+    Get the tokens that are stored corresponding to the argument pool. For example,
+    a request can be like /get-tokens-by-pool-name/cometh-eth-usdc.
+    At the same time, get the mean and standard deviation of the named pool yields
+    over all time.
+
+    If the requested Pool name does not exist in the database, an empty list is returned.
+    If the requested Pool name does not have token information, an empty list is returned.
+    """
+    tokens = get_tokens_by_pool_name(pool_name) or []
+    all_yields = tuple(data[1] for data in get_pool_yields(pool_name))
+    return jsonify({"tokens": tokens, "mean_yield": statistics.mean(all_yields), "standard_deviation": statistics.stdev(all_yields)})
 
 
 @app.route("/delete-pool-list-by-name/<string:list_name_to_delete>", methods=["DELETE"])

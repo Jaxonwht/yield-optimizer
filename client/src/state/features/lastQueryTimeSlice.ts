@@ -28,6 +28,7 @@ export const setLastQueryTime = (
 };
 
 export const lastQueryTimeReducer = lastQueryTimeSlice.reducer;
-
 export const lastQueryTimeSelector = (queryKey: string) => (state: RootState) =>
   state.lastQueryTime[queryKey];
+
+export const POOLS_API_REDUX_KEY = "get-pools";

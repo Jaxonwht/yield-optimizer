@@ -30,5 +30,4 @@ export const loadPools = async (dispatch: AppDispatch) => {
 };
 
 export const poolsReducer = poolsSlice.reducer;
-
 export const poolsSelector = (state: RootState) => state.pools.pools;
