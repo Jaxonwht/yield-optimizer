@@ -25,10 +25,8 @@ const CancellableAdd = ({ onSubmitOrCancel }: CancellableAddProps) => {
   const onClickSubmit = async () => {
     try {
       await axios.put("/add-pool-list", {
-        data: {
-          list_name: poolListName,
-          pool_list: splitCommaSeparatedString(poolNames),
-        },
+        list_name: poolListName,
+        pool_list: splitCommaSeparatedString(poolNames),
       });
       finisher();
     } catch (error) {

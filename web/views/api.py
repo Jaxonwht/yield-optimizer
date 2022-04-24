@@ -28,6 +28,7 @@ def add_pool_list():
     """
 
     request_json = request.get_json()
+    app.logger.info(request_json)
     if not request_json or "list_name" not in request_json:
         raise APIInvalidRequestException("Must supply a list name!")
     list_name = request_json["list_name"]
@@ -107,6 +108,7 @@ def get_pool_yields_by_pool_names():
 
 
 @app.route("/get-optimized-allocation-by-pool-names", methods=["GET"])
+@app.route("/get-optimized-allocation-by-pool-list-name", methods=["GET"])
 def get_optimized_allocation_by_pool_names():
     """
     Given a list of pool names passed in as `pool_names`, a float `k`, and a resampling interval,
@@ -114,10 +116,18 @@ def get_optimized_allocation_by_pool_names():
     for more details on how to select `k`. See
     https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects
     for more details on how to select a resampling interval.
+
+    Alternatively, a pool list name can be supplied in place of a list of pool names. In that case,
+    the pools within the named pool list will be used.
     """
     pool_names = request.args.getlist("pool_names")
-    if not pool_names:
-        raise APIInvalidRequestException("Must supply a list of pool names!")
+    pool_list_name = request.args.get("pool_list_name")
+    if pool_names and pool_list_name:
+        raise APIInvalidRequestException("Do not supply both pool_names and pool_list_name")
+    if not pool_names and not pool_list_name:
+        raise APIInvalidRequestException("Must supply a list of pool names or a pool list name!")
+    if pool_list_name:
+        pool_names = [pool_info.pool_name for pool_info in get_pool_list_info(pool_list_name)]
 
     k = request.args.get("k")
     if not k:

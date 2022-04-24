@@ -1,7 +1,7 @@
 import * as React from "react";
 import ShrunkLabelTextField from "components/common/ShrunkLabelTextField";
 import { COMMON_RESAMPLING_INTERVALS } from "./commonResamplingIntervals";
-import { Button, MenuItem } from "@mui/material";
+import { Button, FormControlLabel, MenuItem, Switch } from "@mui/material";
 import axios from "axios";
 import { splitCommaSeparatedString } from "utils/stringUtils";
 import qs from "qs";
@@ -10,6 +10,7 @@ import { OptimizerResult } from "components/api_response/types";
 import moment from "moment";
 
 const Optimizer = () => {
+  const [usePoolList, setUsePoolList] = React.useState(false);
   const [textInputs, setTextInputs] = React.useState({
     poolNames: "",
     startTime: moment
@@ -32,21 +33,26 @@ const Optimizer = () => {
   };
 
   const onClickSubmit = async () => {
+    const requestConfig = {
+      params: {
+        start_time: textInputs.startTime,
+        end_time: textInputs.endTime,
+        k: parseFloat(textInputs.k),
+        resampling_interval: textInputs.resamplingInterval,
+        [usePoolList ? "pool_list_name" : "pool_names"]: usePoolList
+          ? textInputs.poolNames
+          : splitCommaSeparatedString(textInputs.poolNames),
+      },
+      paramsSerializer: (params: unknown) =>
+        qs.stringify(params, { arrayFormat: "repeat" }),
+    };
+
+    const apiRoute = usePoolList
+      ? "/get-optimized-allocation-by-pool-list-name"
+      : "/get-optimized-allocation-by-pool-names";
+
     try {
-      const response = await axios.get(
-        "/get-optimized-allocation-by-pool-names",
-        {
-          params: {
-            pool_names: splitCommaSeparatedString(textInputs.poolNames),
-            start_time: textInputs.startTime,
-            end_time: textInputs.endTime,
-            k: parseFloat(textInputs.k),
-            resampling_interval: textInputs.resamplingInterval,
-          },
-          paramsSerializer: params =>
-            qs.stringify(params, { arrayFormat: "repeat" }),
-        }
-      );
+      const response = await axios.get(apiRoute, requestConfig);
       setOptimizerResult(response.data);
     } catch (error) {
       console.error(error);
@@ -55,16 +61,38 @@ const Optimizer = () => {
 
   return (
     <>
+      <FormControlLabel
+        label="Query with pool list"
+        control={
+          <Switch
+            checked={usePoolList}
+            onChange={() => setUsePoolList(prevState => !prevState)}
+            inputProps={{ "aria-label": "controlled" }}
+          />
+        }
+      />
       <div>
-        <ShrunkLabelTextField
-          id="pool-names"
-          label="pool names"
-          variant="standard"
-          name="poolNames"
-          value={textInputs.poolNames}
-          onChange={onTextInputChange}
-          required
-        />
+        {usePoolList ? (
+          <ShrunkLabelTextField
+            id="pool-list-name"
+            label="pool list name"
+            variant="standard"
+            name="poolListName"
+            value={textInputs.poolNames}
+            onChange={onTextInputChange}
+            required
+          />
+        ) : (
+          <ShrunkLabelTextField
+            id="pool-names"
+            label="pool names"
+            variant="standard"
+            name="poolNames"
+            value={textInputs.poolNames}
+            onChange={onTextInputChange}
+            required
+          />
+        )}
         <ShrunkLabelTextField
           type="datetime-local"
           id="start-time"
