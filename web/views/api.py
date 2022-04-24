@@ -142,4 +142,4 @@ def get_optimized_allocation_by_pool_names():
 
     resampled_iterable = resample(pools_yields=get_pools_yields(pool_names, start_time, end_time), resampling_interval=resampling_interval)
     result = optimize_ratios(stats=resampled_iterable, k=k)
-    return jsonify(result)
+    return jsonify(result._asdict())

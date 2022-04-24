@@ -2,7 +2,6 @@
 from datetime import datetime
 from typing import Iterable, List, Tuple
 
-from application import app
 from init import db
 from models.series_data import ApySeriesData, PoolInfo
 from sqlalchemy.dialects.postgresql import aggregate_order_by, array_agg
@@ -48,7 +47,6 @@ def get_pools_yields(pool_names: List[str], start_time: datetime, end_time: date
         )
         .group_by(ApySeriesData.pool_info_name)
     )
-    app.logger.info(query)
     rows = query.all()
     for row in rows:
         yield tuple(row._asdict().values())
