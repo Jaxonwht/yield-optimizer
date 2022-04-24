@@ -1,20 +1,25 @@
 import * as React from "react";
-import axios from "axios";
 import { ListItem, List, Button, ListItemText, TextField } from "@mui/material";
+import { poolsSelector, loadPools } from "state/features/poolsSlice";
+import { useTypedDispatch, useTypedSelector } from "state/hooks";
+import {
+  lastQueryTimeSelector,
+  setLastQueryTime,
+} from "state/features/lastQueryTimeSlice";
+
+const POOLS_API_REDUX_KEY = "get-pools";
 
 const Pools = () => {
-  const [poolList, setPoolList] = React.useState<string[]>([]);
   const [searchName, setSearchName] = React.useState("");
-  const [lastQueryTime, setLastQueryTime] = React.useState(0);
+  const pools = useTypedSelector(poolsSelector);
+  const lastQueryTime = useTypedSelector(
+    lastQueryTimeSelector(POOLS_API_REDUX_KEY)
+  );
+  const dispatch = useTypedDispatch();
 
-  const getPools = async () => {
-    try {
-      const response = await axios.get("/get-all-pools");
-      setPoolList((response.data as string[]) ?? []);
-      setLastQueryTime(Date.now());
-    } catch (err) {
-      console.error(err);
-    }
+  const loadPoolsAndUpdateQueryTime = () => {
+    loadPools(dispatch);
+    setLastQueryTime(dispatch, [POOLS_API_REDUX_KEY, Date.now()]);
   };
 
   const onSearchNameChange = async (
@@ -23,11 +28,11 @@ const Pools = () => {
     setSearchName(event.target.value);
     if (Date.now() - lastQueryTime >= 60 * 1000) {
       // 60s
-      await getPools();
+      loadPoolsAndUpdateQueryTime();
     }
   };
 
-  const filteredPoolList = poolList
+  const filteredPoolList = pools
     .filter(
       poolName => searchName == "" || poolName.match(new RegExp(searchName))
     )
@@ -42,7 +47,7 @@ const Pools = () => {
         value={searchName}
         onChange={onSearchNameChange}
       />
-      <Button variant="contained" onClick={getPools}>
+      <Button variant="contained" onClick={loadPoolsAndUpdateQueryTime}>
         Get all pools!
       </Button>
       <List>

@@ -6,7 +6,7 @@ import axios from "axios";
 import { splitCommaSeparatedString } from "utils/stringUtils";
 import qs from "qs";
 import ReactJson from "react-json-view";
-import { OptimizerResult } from "components/api_response/types";
+import type { OptimizerResult } from "components/api_response/types";
 import moment from "moment";
 
 const Optimizer = () => {

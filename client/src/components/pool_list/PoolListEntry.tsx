@@ -2,7 +2,7 @@ import { ListItemButton, ListItemText, List } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import React from "react";
 import axios from "axios";
-import { PoolInList } from "../api_response/types";
+import type { PoolInList } from "../api_response/types";
 
 interface PoolListEntryProps {
   poolListName: string;
