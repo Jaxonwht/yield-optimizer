@@ -12,7 +12,7 @@ import moment from "moment";
 const Optimizer = () => {
   const [usePoolList, setUsePoolList] = React.useState(false);
   const [textInputs, setTextInputs] = React.useState({
-    poolNames: "",
+    poolNamesOrPoolListName: "",
     startTime: moment
       .utc()
       .subtract(1, "month")
@@ -40,8 +40,8 @@ const Optimizer = () => {
         k: parseFloat(textInputs.k),
         resampling_interval: textInputs.resamplingInterval,
         [usePoolList ? "pool_list_name" : "pool_names"]: usePoolList
-          ? textInputs.poolNames
-          : splitCommaSeparatedString(textInputs.poolNames),
+          ? textInputs.poolNamesOrPoolListName
+          : splitCommaSeparatedString(textInputs.poolNamesOrPoolListName),
       },
       paramsSerializer: (params: unknown) =>
         qs.stringify(params, { arrayFormat: "repeat" }),
@@ -77,8 +77,8 @@ const Optimizer = () => {
             id="pool-list-name"
             label="pool list name"
             variant="standard"
-            name="poolListName"
-            value={textInputs.poolNames}
+            name="poolNamesOrPoolListName"
+            value={textInputs.poolNamesOrPoolListName}
             onChange={onTextInputChange}
             required
           />
@@ -87,8 +87,8 @@ const Optimizer = () => {
             id="pool-names"
             label="pool names"
             variant="standard"
-            name="poolNames"
-            value={textInputs.poolNames}
+            name="poolNamesOrPoolListName"
+            value={textInputs.poolNamesOrPoolListName}
             onChange={onTextInputChange}
             required
           />
