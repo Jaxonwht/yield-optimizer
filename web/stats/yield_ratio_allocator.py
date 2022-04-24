@@ -24,7 +24,7 @@ def optimize_ratios(stats: Iterable[Tuple[str, numpy.ndarray]], k: float) -> Opt
             solver_status="trivial",
             maximum_yield=numpy.mean(apys),
             allocation_ratios=[(pool_names[0], 1)],
-            estimated_standard_deviation=numpy.var(apys, ddof=1),
+            estimated_standard_deviation=numpy.sqrt(numpy.var(apys, ddof=1)),
         )
 
     covariance_matrix: numpy.ndarray = numpy.cov(apy_arr)

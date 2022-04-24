@@ -17,7 +17,7 @@ const Optimizer = () => {
       .subtract(1, "month")
       .format(moment.HTML5_FMT.DATETIME_LOCAL),
     endTime: moment.utc().format(moment.HTML5_FMT.DATETIME_LOCAL),
-    k: "1.5",
+    k: "10",
     resamplingInterval: "T",
   });
 
