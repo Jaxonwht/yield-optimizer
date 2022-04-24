@@ -40,6 +40,6 @@ def optimize_ratios(stats: Iterable[Tuple[str, numpy.ndarray]], k: float) -> Opt
     return OptimizerResult(
         soc_problem_result.solver_status,
         soc_problem_result.maximum_value,
-        allocation_ratios=tuple(zip(pool_names, solution_allocation)),
+        allocation_ratios=tuple(sorted(zip(pool_names, solution_allocation), key=lambda pair: pair[1], reverse=True)),
         estimated_standard_deviation=estimated_standard_deviation,
     )
