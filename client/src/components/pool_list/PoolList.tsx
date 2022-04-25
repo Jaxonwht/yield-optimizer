@@ -1,35 +1,33 @@
 import * as React from "react";
-import axios from "axios";
 import { List, Button } from "@mui/material";
 import PoolListEntry from "./PoolListEntry";
 import CancellableAdd from "./CancellableAdd";
+import { useTypedDispatch, useTypedSelector } from "state/hooks";
+import {
+  loadPoolLists,
+  poolListsSelector,
+} from "state/features/poolListsSlice";
+import {
+  POOL_LISTS_API_REDUX_KEY,
+  setLastQueryTime,
+} from "state/features/lastQueryTimeSlice";
 
 const PoolList = () => {
-  const [poolListNames, setPoolListNames] = React.useState<string[]>([]);
+  const poolListNames = useTypedSelector(poolListsSelector);
   const [isAddingPoolList, setIsAddingPoolList] = React.useState(false);
 
-  const onClickGet = async () => {
-    try {
-      const response = await axios.get("/get-all-pool-list-names");
-      setPoolListNames((response.data as string[])?.slice(0, 20));
-    } catch (error) {
-      console.error(error);
-    }
+  const dispatch = useTypedDispatch();
+  const loadPoolListsAndUpdateQueryTime = async () => {
+    await loadPoolLists(dispatch);
+    setLastQueryTime(dispatch, [POOL_LISTS_API_REDUX_KEY, Date.now()]);
   };
-
-  const removePoolList = (poolListName: string) =>
-    setPoolListNames(prevPoolListNames =>
-      prevPoolListNames.filter(name => name != poolListName)
-    );
-
-  const onDeleteClicked = React.useCallback(
-    (poolListName: string) => removePoolList(poolListName),
-    []
-  );
+  React.useEffect(() => {
+    loadPoolListsAndUpdateQueryTime();
+  }, []);
 
   return (
     <>
-      <Button variant="contained" onClick={onClickGet}>
+      <Button variant="contained" onClick={loadPoolListsAndUpdateQueryTime}>
         Get all pool lists!
       </Button>
       <List>
@@ -37,12 +35,17 @@ const PoolList = () => {
           <PoolListEntry
             key={poolListName}
             poolListName={poolListName}
-            onDeleteClicked={onDeleteClicked}
+            onDeleteClicked={loadPoolListsAndUpdateQueryTime}
           />
         ))}
       </List>
       {isAddingPoolList ? (
-        <CancellableAdd onSubmitOrCancel={() => setIsAddingPoolList(false)} />
+        <CancellableAdd
+          onSubmitOrCancel={async () => {
+            setIsAddingPoolList(false);
+            await loadPoolListsAndUpdateQueryTime();
+          }}
+        />
       ) : (
         <Button variant="contained" onClick={() => setIsAddingPoolList(true)}>
           Add new pool list!

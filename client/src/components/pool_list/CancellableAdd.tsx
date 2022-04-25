@@ -1,33 +1,16 @@
 import * as React from "react";
-import { Button, TextField, Autocomplete } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import axios from "axios";
-import { poolsSelector, loadPools } from "state/features/poolsSlice";
-import { useTypedDispatch, useTypedSelector } from "state/hooks";
-import {
-  lastQueryTimeSelector,
-  setLastQueryTime,
-  POOLS_API_REDUX_KEY,
-} from "state/features/lastQueryTimeSlice";
+import PoolsSelector from "../pools/PoolsSelector";
 
 interface CancellableAddProps {
   onSubmitOrCancel?: () => void;
 }
 
-const onTextFieldChange =
-  (setStateFunction: (newStateValue: string) => void) =>
-  (event: React.ChangeEvent<HTMLInputElement>) =>
-    setStateFunction(event.target.value);
-
 const CancellableAdd = ({ onSubmitOrCancel }: CancellableAddProps) => {
   const [poolListName, setPoolListName] = React.useState<string>("");
-
-  const lastQueryTime = useTypedSelector(
-    lastQueryTimeSelector(POOLS_API_REDUX_KEY)
-  );
   const [chosenPoolNames, setChosenPoolNames] = React.useState<string[]>([]);
   const [candidatePoolName, setCandidatePoolName] = React.useState("");
-
-  const dispatch = useTypedDispatch();
 
   const finisher = () => {
     setPoolListName("");
@@ -48,21 +31,6 @@ const CancellableAdd = ({ onSubmitOrCancel }: CancellableAddProps) => {
     }
   };
 
-  const loadPoolsAndUpdateQueryTime = () => {
-    loadPools(dispatch);
-    setLastQueryTime(dispatch, [POOLS_API_REDUX_KEY, Date.now()]);
-  };
-
-  React.useEffect(() => loadPoolsAndUpdateQueryTime(), []);
-  const onInputNameChange = (candidatePool: string) => {
-    if (Date.now() - lastQueryTime >= 60 * 1000) {
-      // 60s
-      loadPoolsAndUpdateQueryTime();
-    }
-    setCandidatePoolName(candidatePool);
-  };
-  const allPoolNames = useTypedSelector(poolsSelector);
-
   return (
     <>
       <TextField
@@ -70,27 +38,14 @@ const CancellableAdd = ({ onSubmitOrCancel }: CancellableAddProps) => {
         label="pool list name"
         variant="standard"
         value={poolListName}
-        onChange={onTextFieldChange(setPoolListName)}
+        onChange={event => setPoolListName(event.target.value)}
       />
-      <Autocomplete
+      <PoolsSelector
         multiple
-        id="add-pools-to-list"
-        value={chosenPoolNames}
-        onChange={(_, chosenPools) => setChosenPoolNames(chosenPools)}
-        inputValue={candidatePoolName}
-        onInputChange={(_, candidatePool: string) =>
-          onInputNameChange(candidatePool)
-        }
-        options={allPoolNames}
-        getOptionLabel={option => option}
-        renderInput={params => (
-          <TextField
-            {...params}
-            variant="standard"
-            label="Pool names"
-            placeholder="Favorites"
-          />
-        )}
+        chosenPoolNames={chosenPoolNames}
+        setChosenPoolNames={setChosenPoolNames}
+        candidatePoolName={candidatePoolName}
+        setCandidatePoolName={setCandidatePoolName}
       />
       <Button onClick={onClickSubmit}>Submit</Button>
       <Button onClick={finisher}>Cancel</Button>

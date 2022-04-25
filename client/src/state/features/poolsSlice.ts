@@ -2,19 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import type { AppDispatch, RootState } from "state/store";
 
-interface State {
-  pools: string[];
-}
-
-const initialState: State = { pools: [] };
+const initialState: string[] = [];
 
 export const poolsSlice = createSlice({
   name: "pools",
   initialState: initialState,
   reducers: {
-    setPools: (state, action: { payload: string[] }) => {
-      state.pools = action.payload;
-    },
+    setPools: (_, action: { payload: string[] }) => action.payload,
   },
 });
 
@@ -30,4 +24,4 @@ export const loadPools = async (dispatch: AppDispatch) => {
 };
 
 export const poolsReducer = poolsSlice.reducer;
-export const poolsSelector = (state: RootState) => state.pools.pools;
+export const poolsSelector = (state: RootState) => state.pools;

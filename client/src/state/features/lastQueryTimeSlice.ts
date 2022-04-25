@@ -32,3 +32,4 @@ export const lastQueryTimeSelector = (queryKey: string) => (state: RootState) =>
   state.lastQueryTime[queryKey];
 
 export const POOLS_API_REDUX_KEY = "get-pools";
+export const POOL_LISTS_API_REDUX_KEY = "get-pool-lists";

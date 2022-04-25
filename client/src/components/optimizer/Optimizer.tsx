@@ -3,16 +3,16 @@ import ShrunkLabelTextField from "components/common/ShrunkLabelTextField";
 import { COMMON_RESAMPLING_INTERVALS } from "./commonResamplingIntervals";
 import { Button, FormControlLabel, MenuItem, Switch } from "@mui/material";
 import axios from "axios";
-import { splitCommaSeparatedString } from "utils/stringUtils";
 import qs from "qs";
 import ReactJson from "react-json-view";
 import type { OptimizerResult } from "components/api_response/types";
 import moment from "moment";
+import PoolsSelector from "components/pools/PoolsSelector";
 
 const Optimizer = () => {
   const [usePoolList, setUsePoolList] = React.useState(false);
   const [textInputs, setTextInputs] = React.useState({
-    poolNamesOrPoolListName: "",
+    poolListName: "",
     startTime: moment
       .utc()
       .subtract(1, "month")
@@ -21,6 +21,9 @@ const Optimizer = () => {
     k: "10",
     resamplingInterval: "T",
   });
+
+  const [chosenPoolNames, setChosenPoolNames] = React.useState<string[]>([]);
+  const [candidatePoolName, setCandidatePoolName] = React.useState("");
 
   const [optimizerResult, setOptimizerResult] =
     React.useState<OptimizerResult | null>(null);
@@ -40,8 +43,8 @@ const Optimizer = () => {
         k: parseFloat(textInputs.k),
         resampling_interval: textInputs.resamplingInterval,
         [usePoolList ? "pool_list_name" : "pool_names"]: usePoolList
-          ? textInputs.poolNamesOrPoolListName
-          : splitCommaSeparatedString(textInputs.poolNamesOrPoolListName),
+          ? textInputs.poolListName
+          : chosenPoolNames,
       },
       paramsSerializer: (params: unknown) =>
         qs.stringify(params, { arrayFormat: "repeat" }),
@@ -78,19 +81,17 @@ const Optimizer = () => {
             label="pool list name"
             variant="standard"
             name="poolNamesOrPoolListName"
-            value={textInputs.poolNamesOrPoolListName}
+            value={textInputs.poolListName}
             onChange={onTextInputChange}
             required
           />
         ) : (
-          <ShrunkLabelTextField
-            id="pool-names"
-            label="pool names"
-            variant="standard"
-            name="poolNamesOrPoolListName"
-            value={textInputs.poolNamesOrPoolListName}
-            onChange={onTextInputChange}
-            required
+          <PoolsSelector
+            multiple
+            chosenPoolNames={chosenPoolNames}
+            setChosenPoolNames={setChosenPoolNames}
+            candidatePoolName={candidatePoolName}
+            setCandidatePoolName={setCandidatePoolName}
           />
         )}
         <ShrunkLabelTextField

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 import Loading from "./components/Loading";
-import Pools from "./components/Pools";
+import Pools from "./components/pools/Pools";
 import PoolList from "./components/pool_list/PoolList";
 import Optimizer from "./components/optimizer/Optimizer";
 import Home from "./components/Home";
