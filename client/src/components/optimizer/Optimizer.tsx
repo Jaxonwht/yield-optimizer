@@ -7,12 +7,12 @@ import qs from "qs";
 import ReactJson from "react-json-view";
 import type { OptimizerResult } from "components/api_response/types";
 import moment from "moment";
-import PoolsSelector from "components/pools/PoolsSelector";
+import PoolsSelector from "../pools/PoolsSelector";
+import PoolListsSelector from "../pool_list/PoolListsSelector";
 
 const Optimizer = () => {
   const [usePoolList, setUsePoolList] = React.useState(false);
   const [textInputs, setTextInputs] = React.useState({
-    poolListName: "",
     startTime: moment
       .utc()
       .subtract(1, "month")
@@ -24,6 +24,11 @@ const Optimizer = () => {
 
   const [chosenPoolNames, setChosenPoolNames] = React.useState<string[]>([]);
   const [candidatePoolName, setCandidatePoolName] = React.useState("");
+
+  const [chosenPoolListName, setChosenPoolListName] = React.useState<
+    string | null
+  >(null);
+  const [candidatePoolListName, setCandidatePoolListName] = React.useState("");
 
   const [optimizerResult, setOptimizerResult] =
     React.useState<OptimizerResult | null>(null);
@@ -43,7 +48,7 @@ const Optimizer = () => {
         k: parseFloat(textInputs.k),
         resampling_interval: textInputs.resamplingInterval,
         [usePoolList ? "pool_list_name" : "pool_names"]: usePoolList
-          ? textInputs.poolListName
+          ? chosenPoolListName
           : chosenPoolNames,
       },
       paramsSerializer: (params: unknown) =>
@@ -76,14 +81,11 @@ const Optimizer = () => {
       />
       <div>
         {usePoolList ? (
-          <ShrunkLabelTextField
-            id="pool-list-name"
-            label="pool list name"
-            variant="standard"
-            name="poolNamesOrPoolListName"
-            value={textInputs.poolListName}
-            onChange={onTextInputChange}
-            required
+          <PoolListsSelector
+            chosenPoolListName={chosenPoolListName}
+            setChosenPoolListName={setChosenPoolListName}
+            candidatePoolListName={candidatePoolListName}
+            setCandidatePoolListName={setCandidatePoolListName}
           />
         ) : (
           <PoolsSelector
