@@ -80,11 +80,11 @@ Always double-check the auto-generated migration file before commiting to the up
 
 
 
-### GCP cluster deployment
-1. `docker build . -f Dockerfile.web -t us-central1-docker.pkg.dev/yield-optimizer/yield-optimizer/web:latest`
-2. `docker build . -f Dockerfile.client -t us-central1-docker.pkg.dev/yield-optimizer/yield-optimizer/client:latest`
-3. `docker push us-central1-docker.pkg.dev/yield-optimizer/yield-optimizer/web:latest`
-4. `docker push us-central1-docker.pkg.dev/yield-optimizer/yield-optimizer/client:latest`
-5. `gcloud container clusters get-credentials yield-optimizer --region us-central1`
-6. `kubectl apply -f k8s/`
-7. `kubectl delete -f k8s/`
+### Okteto cluster deployment
+1. `curl https://get.okteto.com -sSfL | sh` to install the Okteto CLI.
+2. `okteto context use https://cloud.okteto.com -n <namespace> -t <token>` to configure CLI.
+3. `okteto build . -f Dockerfile.client -t okteto.dev/yield-optimizer-web:latest` to build and push image to Okteto registry.
+4. `okteto build . -f Dockerfile.client -t okteto.dev/yield-optimizer-client:latest` to build and push image to Okteto registry.
+5. `kubectl config set-context --current --namespace <namespace>` after uploading kubernetes config file to `~/.kube/config`.
+8. `kubectl apply -f k8s/`
+9. `kubectl delete -f k8s/`
