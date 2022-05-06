@@ -8,7 +8,7 @@ spec:
       maxSurge: 1
       maxUnavailable: 1
     type: RollingUpdate
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: client-prod
@@ -19,14 +19,14 @@ spec:
     spec:
       containers:
         - name: client-prod
-          image: us-central1-docker.pkg.dev/yield-optimizer/yield-optimizer/client:latest
+          image: registry.cloud.okteto.net/zhoujc999/yield-optimizer-client:latest
           resources:
             limits:
-              cpu: "250m"
-              memory: "512Mi"
+              cpu: "1"
+              memory: "2Gi"
             requests:
-              cpu: "250m"
-              memory: "512Mi"
+              cpu: "1"
+              memory: "2Gi"
           ports:
             - containerPort: 3000
 ---
