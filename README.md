@@ -83,7 +83,7 @@ Always double-check the auto-generated migration file before commiting to the up
 ### Okteto cluster deployment
 1. `curl https://get.okteto.com -sSfL | sh` to install the Okteto CLI.
 2. `okteto context use https://cloud.okteto.com -n <namespace> -t <token>` to configure CLI.
-3. `okteto build . -f Dockerfile.client -t okteto.dev/yield-optimizer-web:latest` to build and push image to Okteto registry.
+3. `okteto build . -f Dockerfile.web -t okteto.dev/yield-optimizer-web:latest` to build and push image to Okteto registry.
 4. `okteto build . -f Dockerfile.client -t okteto.dev/yield-optimizer-client:latest` to build and push image to Okteto registry.
 5. `kubectl config set-context --current --namespace <namespace>` after uploading kubernetes config file to `~/.kube/config`.
 8. `kubectl apply -f k8s/`
