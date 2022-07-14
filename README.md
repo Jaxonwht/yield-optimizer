@@ -90,24 +90,24 @@ Always double-check the auto-generated migration file before commiting to the up
 9. `kubectl delete -f k8s/`
 
 ### How to deploy and use secret?
-1. `kubectl create secret generic sqlalchemy-database-uri-secret --from-literal='<key>=<secret>'`.
+1. `kubectl create secret generic <secret-name> --from-literal='<key>=<secret>'`.
 2. 
 ```
 apiVersion: v1
 kind: Pod
 metadata:
-  name: secret-test-pod
+  name: <pod-name>
 spec:
   containers:
-    - name: test-container
+    - name: <container-name>
       image: nginx
       volumeMounts:
         # name must match the volume name below
-        - name: secret-volume
-          mountPath: /etc/secret-volume
+        - name: <secret-volume>
+          mountPath: <mount-path>
   # The secret data is exposed to Containers in the Pod through a Volume.
   volumes:
-    - name: secret-volume
+    - name: <secret-volume>
       secret:
-        secretName: test-secret
+        secretName: <secret-name>
 ```
