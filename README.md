@@ -88,3 +88,25 @@ Always double-check the auto-generated migration file before commiting to the up
 5. `kubectl config set-context --current --namespace <namespace>` after uploading kubernetes config file to `~/.kube/config`.
 8. `kubectl apply -f k8s/`
 9. `kubectl delete -f k8s/`
+
+### How to deploy and use secret?
+1. `kubectl create secret generic sqlalchemy-database-uri-secret --from-literal='<key>=<secret>'`.
+2. ```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secret-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: nginx
+      volumeMounts:
+        # name must match the volume name below
+        - name: secret-volume
+          mountPath: /etc/secret-volume
+  # The secret data is exposed to Containers in the Pod through a Volume.
+  volumes:
+    - name: secret-volume
+      secret:
+        secretName: test-secret
+```
