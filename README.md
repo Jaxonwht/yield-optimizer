@@ -91,7 +91,8 @@ Always double-check the auto-generated migration file before commiting to the up
 
 ### How to deploy and use secret?
 1. `kubectl create secret generic sqlalchemy-database-uri-secret --from-literal='<key>=<secret>'`.
-2. ```
+2. 
+```
 apiVersion: v1
 kind: Pod
 metadata:
